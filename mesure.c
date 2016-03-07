@@ -30,7 +30,7 @@ void mesure(int* bpm, float* rsIR, int acR, int acIR, int dcR, int dcIR)
 
 	static int acIRmin = SEUIL_BAS;
 	static int acIRmax = SEUIL_HAUT;
-	static float acIRbpm
+	static float acIRbpm;
 
 
 	if(acR > acRmax)
@@ -101,7 +101,7 @@ void mesure(int* bpm, float* rsIR, int acR, int acIR, int dcR, int dcIR)
 	{
 		calculPossible = 0;
 		*rsIR = calculSPo2(acRmax, acRmin, acIRmax, acIRmin, dcR, dcIR);
-		*bpm = (acRbpm + acIRbpm)/2.0
+		*bpm = (acRbpm + acIRbpm)/2.0;
 	}
 }
 
