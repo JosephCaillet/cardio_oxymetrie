@@ -6,17 +6,26 @@ void initDataBuffer(DataBuffer* buffer)
 
 	for(i = 0; i < BUFFER_SIZE; i++)
 	{
-		(*buffer)[i].acR = 0;
-		(*buffer)[i].acIR = 0;
+		buffer->datas[i].acR = 0;
+		buffer->datas[i].acIR = 0;
 	}
+
+	data->index = -1;
 }
 
 void push_front(DataBuffer* buffer, Data data)
 {
+	buffer->index--;
+	
+	if(index == -1)
+	{
+		buffer->index = BUFFER_SIZE - 1;
+	}
 
+	buffer->datas[buffer->index] = data;
 }
 
-Data at(DataBuffer*, int index)
+Data at(DataBuffer* buffer, int index)
 {
-
+	return buffer->datas[ (buffer->index + index) % BUFFER_SIZE];
 }
