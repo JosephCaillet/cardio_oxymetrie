@@ -3,6 +3,6 @@
 
 #include "dataBuffer.h"
 
-int lecture(void* source, int typeSource, Data* data, int* DCr, int*ACr);
+int lecture(void* source, int typeSource, Data* data, int* DCr, int* ACr);
 
 #endif

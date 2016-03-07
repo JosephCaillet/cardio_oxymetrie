@@ -1,6 +1,6 @@
 #ifndef IIR
 #define IIR
 
-int irrPH(int acFiltrePB, int acFiltrePBPrec);
+int irrPH(int acFiltre, int acFiltrePrec);
 
 #endif
