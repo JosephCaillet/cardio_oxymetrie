@@ -19,6 +19,6 @@ typedef struct DataBuffer DataBuffer;
 
 void initDataBuffer(DataBuffer* buffer);
 void push_back(DataBuffer* buffer, Data data);
-Data at(int index);
+Data at(DataBuffer*, int index);
 
 #endif

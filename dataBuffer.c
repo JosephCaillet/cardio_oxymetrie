@@ -1,4 +1,16 @@
-#ifndef DATABUFFER
-#define DATABUFFER
+#include "dataBuffer.h"
 
-#endif
+void initDataBuffer(DataBuffer* buffer)
+{
+
+}
+
+void push_back(DataBuffer* buffer, Data data)
+{
+
+}
+
+Data at(int index)
+{
+
+}
