@@ -1,18 +1,18 @@
 #ifndef DATABUFFER
 #define DATABUFFER
 
-#define BUFFER_SIZE 50
+#define BUFFER_SIZE 51
 
 struct Data
 {
 	int acR;
-	int arIR;
+	int acIR;
 };
 typedef struct Data Data;
 
 struct DataBuffer
 {
-	Data datas[BUFFER_SIZE]
+	Data datas[BUFFER_SIZE];
 	int index;
 };
 typedef struct DataBuffer DataBuffer;
