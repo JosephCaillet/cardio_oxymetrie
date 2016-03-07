@@ -3,8 +3,8 @@
 #include "affichage.h"
 
 void affichage(int bpm, float rsIR){
-	File *verrou = NULL;
-	File *data = NULL²;
+	FILE *verrou = NULL;
+	FILE *data = NULL;
 
 	verrou = fopen(".verrouData", "r");
 
@@ -13,7 +13,7 @@ void affichage(int bpm, float rsIR){
 
 		data = fopen("Data.txt", "w+");
 		if(data != NULL){
-			fprintf(data, "%d\n%d", rsIR, bpm);
+			fprintf(data, "%f\n%d", rsIR, bpm);
 
 			fclose(data);
 		}

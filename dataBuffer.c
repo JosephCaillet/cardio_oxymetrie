@@ -10,14 +10,14 @@ void initDataBuffer(DataBuffer* buffer)
 		buffer->datas[i].acIR = 0;
 	}
 
-	data->index = 42;
+	buffer->index = 42;
 }
 
 void push_front(DataBuffer* buffer, Data data)
 {
 	buffer->index--;
 	
-	if(index == -1)
+	if(buffer->index == -1)
 	{
 		buffer->index = BUFFER_SIZE - 1;
 	}
