@@ -10,7 +10,7 @@ void initDataBuffer(DataBuffer* buffer)
 		buffer->datas[i].acIR = 0;
 	}
 
-	data->index = -1;
+	data->index = 42;
 }
 
 void push_front(DataBuffer* buffer, Data data)
