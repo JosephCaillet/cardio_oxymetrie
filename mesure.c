@@ -1,108 +1,73 @@
 #include "mesure.h"
-#include <time.h>
 
 void mesure(int* bpm, float* rsIR, int acR, int acIR, int dcR, int dcIR)
 {
-	int calculPossible = 0;
+	int periodeAquise = 0;
+	static AcMesures acRm = {0,0,0, 0, 0,0, SEUIL_BAS,SEUIL_HAUT, 0.0};
+	static AcMesures acIRm = {0,0,0, 0, 0,0, SEUIL_BAS,SEUIL_HAUT, 0.0};
 
-	static int acRpassagePar0 = 0;
-	static int acRseuilHautPasse = 0;
-	static int acRseuilBasPasse = 0;
+	//majMaxMinSeuil
+	majMaxMinDepasseSeuil(&acRm, acR);
+	majMaxMinDepasseSeuil(&acIRm, acIR);
 
-	static int acRlastValue = 0;
+	//upd passage par 0
+	majPassageZero(&acRm, acR);
+	majPassageZero(&acIRm, acIR);
 
-	static clock_t acRperiodeDeb = 0;
-	static clock_t acRperiodeFin = 0;	
+	//updBpm
+	periodeAquise += majBpm(&acRm);
+	periodeAquise += majBpm(&acIRm);
 
-	static int acRmin = SEUIL_BAS;
-	static int acRmax = SEUIL_HAUT;
-
-	static float acRbpm;
-
-	static int acIRpassagePar0 = 0;
-	static int acIRseuilHautPasse = 0;
-	static int acIRseuilBasPasse = 0;
-
-	static int acIRlastValue = 0;
-
-	static clock_t acIRperiodeDeb = 0;
-	static clock_t acIRperiodeFin = 0;
-
-	static int acIRmin = SEUIL_BAS;
-	static int acIRmax = SEUIL_HAUT;
-	static float acIRbpm;
-
-
-	if(acR > acRmax)
+	//updSPo2	
+	if(periodeAquise > 0)
 	{
-		acRmax = acR;
-		acRseuilHautPasse = 1;
+		*rsIR = calculSPo2(acRm.max, acRm.min, acIRm.max, acIRm.min, dcR, dcIR);
+		*bpm = (acRm.bpm + acIRm.bpm) / 2.0;
 	}
-	else if(acR < acRmin)
+}
+
+void majMaxMinDepasseSeuil(AcMesures* ac, int acNew)
+{
+	if(acNew > ac->max)
 	{
-		acRmin = acR;
-		acRseuilBasPasse = 1;
+		ac->max = acNew;
+		ac->seuilHautPasse = 1;
 	}
-
-	if(acIR > acIRmax)
+	else if(acNew < ac->min)
 	{
-		acIRmax = acIR;
-		acIRseuilHautPasse = 1;
+		ac->min = acNew;
+		ac->seuilBasPasse = 1;
 	}
-	else if(acIR < acIRmin)
+}
+
+void majPassageZero(AcMesures* ac, int acNew)
+{
+	if(ac->lastValue * acNew <= 0)
 	{
-		acIRmin = acIR;
-		acRseuilBasPasse = 1;
+		ac->passagePar0++;
 	}
+	ac->lastValue = acNew;
+}
 
-
-	if(acRlastValue * acR <= 0)
+int majBpm(AcMesures* ac)
+{
+	if(ac->seuilBasPasse == 1 && ac->seuilHautPasse == 1 && ac->passagePar0 > 2)
 	{
-		acRpassagePar0++;
-	}
-	acRlastValue = acR;
+		ac->seuilHautPasse = 0;
+		ac->seuilBasPasse = 0;
+		ac->passagePar0 = 1;
+		ac->min = SEUIL_BAS;
+		ac->max = SEUIL_HAUT;
 
-	if(acIRlastValue * acIR <= 0)
-	{
-		acRpassagePar0++;
-	}
-	acIRlastValue = acIR;
+		ac->periodeFin = clock();
+		ac->bpm = (ac->periodeFin - ac->periodeDeb) / CLOCKS_PER_SEC;
+		ac->bpm = 1.0 / ac->bpm;
+		ac->periodeDeb = ac->periodeFin;
 
-
-	if(acRseuilBasPasse == 1 && acRseuilHautPasse == 1 && acRpassagePar0 > 2)
-	{
-		calculPossible = 1;
-
-		acRseuilHautPasse = 0;
-		acRseuilBasPasse = 0;
-		acRpassagePar0 = 1;
-
-		acRperiodeFin = clock();
-		acRbpm = (acRperiodeFin - acRperiodeDeb) / CLOCKS_PER_SEC;
-		acRperiodeDeb = acRperiodeFin;
-		acRbpm = 1.0 / acRbpm;
+		return 1;
 	}
 
-	if(acIRseuilBasPasse == 1 && acIRseuilHautPasse == 1 && acIRpassagePar0 > 2)
-	{
-		calculPossible = 1;
-
-		acIRseuilHautPasse = 0;
-		acIRseuilBasPasse = 0;
-		acIRpassagePar0 = 1;
-
-		acIRperiodeFin = clock();
-		acIRbpm = (acIRperiodeFin - acIRperiodeDeb) / CLOCKS_PER_SEC;
-		acIRperiodeDeb = acIRperiodeFin;
-		acIRbpm = 1.0 / acIRbpm;
-	}
-	
-	if(calculPossible == 1)
-	{
-		calculPossible = 0;
-		*rsIR = calculSPo2(acRmax, acRmin, acIRmax, acIRmin, dcR, dcIR);
-		*bpm = (acRbpm + acIRbpm)/2.0;
-	}
+	return 0;
 }
 
 float calculSPo2(float acRmax, float acRmin, float acIRmax, float acIRmin, int dcR, int dcIR)
