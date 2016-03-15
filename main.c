@@ -15,6 +15,7 @@ int main(int argc, char* argv[])
 	DataBuffer buffer;
 	Oxy oxyDatas;
 	int reussite, continuer, err, typeSrc;
+	//int lastBpm = 0;
 	float acRPB, acRPBPrec, acRPH, acRPHPrec, acIRPB, acIRPBPrec, acIRPH, acIRPHPrec;
 	/*
 	acRPB - acR filtré passe bas
@@ -77,8 +78,13 @@ int main(int argc, char* argv[])
 			absorb.acir = acIRPH;
 			mesure(&oxyDatas, absorb);
 
+			//oxyDatas.pouls += lastBpm;
+			//oxyDatas.pouls /= 2;
+
 			printf("%d\t%d\n", oxyDatas.pouls, oxyDatas.spo2);
 			affichage(oxyDatas);
+
+			//lastBpm = oxyDatas.pouls;
 		}else if(reussite == 1){
 			err++;
 

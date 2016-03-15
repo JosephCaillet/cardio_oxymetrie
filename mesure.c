@@ -19,7 +19,7 @@ void mesure(Oxy* oxy, Absorp absorp)
 	if(periodeAquise > 0)
 	{
 		oxy->spo2 = calculSPo2(acRm.max, acRm.min, acIRm.max, acIRm.min, absorp.dcr, absorp.dcir);
-		oxy->pouls = (acRm.bpm + acIRm.bpm) / 2.0;
+		oxy->pouls = (acRm.bpm + acIRm.bpm) / 2.0f;
 		printf("Une période à été aquise !\n");
 		printf("Rbmp: %f - IRbmp: %f\n", acRm.bpm, acIRm.bpm);
 	}
@@ -51,7 +51,7 @@ int majBpm(AcMesures* ac)
 		ac->min = SEUIL_BAS;
 		ac->max = SEUIL_HAUT;
 
-		ac->bpm = 30000/ac->nbPoints;
+		ac->bpm = (float)30000/(float)ac->nbPoints;
 		ac->nbPoints = 1;
 
 		return 1;
