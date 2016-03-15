@@ -8,12 +8,14 @@ void initDataBuffer(DataBuffer* buffer)
 	{
 		buffer->datas[i].acR = 0;
 		buffer->datas[i].acIR = 0;
+		buffer->datas[i].dcR = 0;
+		buffer->datas[i].dcIR = 0;
 	}
 
 	buffer->index = 42;
 }
 
-void push_front(DataBuffer* buffer, Data data)
+void push_front(DataBuffer* buffer, Absorp absorp)
 {
 	buffer->index--;
 	
@@ -22,10 +24,10 @@ void push_front(DataBuffer* buffer, Data data)
 		buffer->index = BUFFER_SIZE - 1;
 	}
 
-	buffer->datas[buffer->index] = data;
+	buffer->datas[buffer->index] = absorp;
 }
 
-Data at(DataBuffer* buffer, int index)
+Absorp at(DataBuffer* buffer, int index)
 {
 	return buffer->datas[ (buffer->index + index) % BUFFER_SIZE];
 }

@@ -4,6 +4,7 @@
 #include "firPB.c"
 #include "iirPH.c"
 #include "mesure.c"
+#include "lecture.c"
 #include "affichage.c"
 #include "dataBuffer.c"
 
