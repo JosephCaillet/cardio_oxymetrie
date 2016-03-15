@@ -1,7 +1,6 @@
 #ifndef MESURE
 #define MESURE
 
-#include <time.h>
 #include "dataBuffer.h"
 
 #define SEUIL_HAUT 500
@@ -14,9 +13,7 @@ struct AcMesures
 	int seuilBasPasse;
 
 	int lastValue;
-
-	clock_t periodeDeb;
-	clock_t periodeFin;	
+	int nbPoints;
 
 	int min;
 	int max;
