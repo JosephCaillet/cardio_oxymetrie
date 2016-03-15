@@ -17,7 +17,7 @@ void affichage(Oxy oxyDatas){
 
 		data = fopen("Data.txt", "w+");
 		if(data != NULL){
-			fprintf(data, "%f\n%d", oxyDatas.spo2, oxyDatas.pouls);
+			fprintf(data, "%d\n%d", oxyDatas.spo2, oxyDatas.pouls);
 
 			fclose(data);
 		}

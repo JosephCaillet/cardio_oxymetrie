@@ -1,4 +1,4 @@
-FLAGS=-Wall -Wextra -pedantic -w
+FLAGS=-Wall -Wextra #-pedantic
 
 carOxyAcq: main.o firPB.o iirPH.o lecture.o mesure.o affichage.o dataBuffer.o
 	gcc main.o firPB.o iirPH.o lecture.o mesure.o affichage.o dataBuffer.o -o carOxyAcq.exe

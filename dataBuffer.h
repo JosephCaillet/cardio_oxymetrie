@@ -3,6 +3,13 @@
 
 #define BUFFER_SIZE 51
 
+struct Oxy
+{
+	int spo2;
+	int pouls;
+};
+typedef struct Oxy Oxy;
+
 struct Absorp
 {
 	float acR;

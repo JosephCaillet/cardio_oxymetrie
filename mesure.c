@@ -1,6 +1,6 @@
 #include "mesure.h"
 
-void mesure(int* bpm, float* rsIR, Absorp absorp)
+void mesure(Oxy* oxy, Absorp absorp)
 {
 	int periodeAquise = 0;
 	static AcMesures acRm = {0,0,0, 0, 0,0, SEUIL_BAS,SEUIL_HAUT, 0.0};
@@ -21,8 +21,8 @@ void mesure(int* bpm, float* rsIR, Absorp absorp)
 	//updSPo2	
 	if(periodeAquise > 0)
 	{
-		*rsIR = calculSPo2(acRm.max, acRm.min, acIRm.max, acIRm.min, absorp.dcR, absorp.dcIR);
-		*bpm = (acRm.bpm + acIRm.bpm) / 2.0;
+		oxy->spo2 = calculSPo2(acRm.max, acRm.min, acIRm.max, acIRm.min, absorp.dcR, absorp.dcIR);
+		oxy->pouls = (acRm.bpm + acIRm.bpm) / 2.0;
 	}
 }
 

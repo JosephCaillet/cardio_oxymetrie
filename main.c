@@ -9,12 +9,12 @@
 #include "dataBuffer.h"
 
 
-int main(int argc, char const *argv[])
+int main(int argc, char* argv[])
 {
 	Absorp absorb;
 	DataBuffer buffer;
 	Oxy oxyDatas;
-	int reussite, continuer, err, bpm, rsIR, typeSrc;
+	int reussite, continuer, err, typeSrc;
 	float acRPB, acRPBPrec, acRPH, acRPHPrec, acIRPB, acIRPBPrec, acIRPH, acIRPHPrec;
 	/*
 	acRPB - acR filtré passe bas
@@ -33,8 +33,6 @@ int main(int argc, char const *argv[])
 	reussite = 0;
 	continuer = 1;
 	err = 0;
-	bpm = 0;
-	rsIR = 0;
 	typeSrc = 0;
 
 	acRPB = 0;
@@ -71,10 +69,8 @@ int main(int argc, char const *argv[])
 
 			absorb.acR = acRPH;
 			absorb.acIR = acIRPH;
-			mesure(&bpm, &rsIR, absorb);
+			mesure(&oxyDatas, absorb);
 
-			oxyDatas.spo2 = rsIR;
-			oxyDatas.pouls = bpm;
 			affichage(oxyDatas);
 		}else if(reussite == 1){
 			err++;

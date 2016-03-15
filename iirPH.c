@@ -1,5 +1,5 @@
 #include "iirPH.h"
 
-int iirPH(int ac, int acPrec, int acPHPrec){
+int iirPH(float ac, float acPrec, float acPHPrec){
 	return ac - acPrec + ALPHA * acPHPrec;
 }
