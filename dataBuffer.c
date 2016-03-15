@@ -6,10 +6,10 @@ void initDataBuffer(DataBuffer* buffer)
 
 	for(i = 0; i < BUFFER_SIZE; i++)
 	{
-		buffer->datas[i].acR = 0;
-		buffer->datas[i].acIR = 0;
-		buffer->datas[i].dcR = 0;
-		buffer->datas[i].dcIR = 0;
+		buffer->datas[i].acr = 0;
+		buffer->datas[i].acir = 0;
+		buffer->datas[i].dcr = 0;
+		buffer->datas[i].dcir = 0;
 	}
 
 	buffer->index = 42;

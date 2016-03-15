@@ -7,12 +7,12 @@ void mesure(Oxy* oxy, Absorp absorp)
 	static AcMesures acIRm = {0,0,0, 0, 0,0, SEUIL_BAS,SEUIL_HAUT, 0.0};
 
 	//majMaxMinSeuil
-	majMaxMinDepasseSeuil(&acRm, absorp.acR);
-	majMaxMinDepasseSeuil(&acIRm, absorp.acIR);
+	majMaxMinDepasseSeuil(&acRm, absorp.acr);
+	majMaxMinDepasseSeuil(&acIRm, absorp.acir);
 
 	//upd passage par 0
-	majPassageZero(&acRm, absorp.acR);
-	majPassageZero(&acIRm, absorp.acIR);
+	majPassageZero(&acRm, absorp.acr);
+	majPassageZero(&acIRm, absorp.acir);
 
 	//updBpm
 	periodeAquise += majBpm(&acRm);
@@ -21,7 +21,7 @@ void mesure(Oxy* oxy, Absorp absorp)
 	//updSPo2	
 	if(periodeAquise > 0)
 	{
-		oxy->spo2 = calculSPo2(acRm.max, acRm.min, acIRm.max, acIRm.min, absorp.dcR, absorp.dcIR);
+		oxy->spo2 = calculSPo2(acRm.max, acRm.min, acIRm.max, acIRm.min, absorp.dcir, absorp.dcir);
 		oxy->pouls = (acRm.bpm + acIRm.bpm) / 2.0;
 	}
 }

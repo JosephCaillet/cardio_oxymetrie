@@ -3,6 +3,6 @@
 
 #define ALPHA 0.992
 
-int irrPH(float acFiltre, float acFiltrePrec, float acFiltrePHPrec);
+float iirPH(float acFiltre, float acFiltrePrec, float acFiltrePHPrec);
 
 #endif

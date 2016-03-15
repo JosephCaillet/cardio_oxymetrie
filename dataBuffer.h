@@ -12,10 +12,10 @@ typedef struct Oxy Oxy;
 
 struct Absorp
 {
-	float acR;
-	float acIR;
-	float dcR;
-	float dcIR;
+	float acr;
+	float acir;
+	float dcr;
+	float dcir;
 };
 typedef struct Absorp Absorp;
 

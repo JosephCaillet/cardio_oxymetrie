@@ -12,8 +12,8 @@ void firPB(DataBuffer* dataBuffer, float* acRFiltre, float* acIRFiltre){
 	*acIRFiltre = 0;
 
 	for(i=0; i<51; i++){
-		*acRFiltre += hk[i] * at(dataBuffer, i).acR;
-		*acIRFiltre += hk[i] * at(dataBuffer, i).acIR;
+		*acRFiltre += hk[i] * at(dataBuffer, i).acr;
+		*acIRFiltre += hk[i] * at(dataBuffer, i).acr;
 	}
 
 	return;

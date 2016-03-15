@@ -67,8 +67,8 @@ int main(int argc, char* argv[])
 			acIRPHPrec = acIRPH;
 			acIRPH = iirPH(acIRPB, acIRPBPrec, acIRPHPrec);
 
-			absorb.acR = acRPH;
-			absorb.acIR = acIRPH;
+			absorb.acr = acRPH;
+			absorb.acir = acIRPH;
 			mesure(&oxyDatas, absorb);
 
 			affichage(oxyDatas);
