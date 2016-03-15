@@ -88,5 +88,9 @@ float calculSPo2(float acRmax, float acRmin, float acIRmax, float acIRmin, int d
 
 float convertRatioToSPO2(float ratio)
 {
-	return -31.25 * ratio + 112.5;
+	if(ratio < 1)
+	{
+		return -25 * ratio + 110;
+	}
+	return -35.71429 * ratio + 121.4285714;
 }
