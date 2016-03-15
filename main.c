@@ -12,6 +12,7 @@ int main(int argc, char const *argv[])
 {
 	Data acData;
 	DataBuffer buffer;
+	Oxy oxyDatas;
 	int reussite, acRPB, acRPBPrec, acRPH, acRPHPrec, acIRPB, acIRPBPrec, acIRPH, acIRPHPrec, dcR, dcIR, bpm, continuer, err, typeSrc;
 	float rsIR;
 	String src;
@@ -53,7 +54,9 @@ int main(int argc, char const *argv[])
 
 			mesure(&bpm, &rsIR, acRPH, acIRPH, dcR, dcIR);
 
-			affichage(bpm, rsIR);
+			oxyDatas.spo2 = rsIR;
+			oxyDatas.pouls = bpm;
+			affichage(oxyDatas);
 		}else if(reussite == 1){
 			err++;
 
