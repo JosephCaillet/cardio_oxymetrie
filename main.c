@@ -40,7 +40,7 @@ int main(int argc, char* argv[])
 	acRPH = 0;
 	acIRPH = 0;
 
-	if(argc == 1){
+	if(argc == 2){
 		src = fopen(argv[1], "r");
 		if(src == NULL)
 		{
@@ -51,6 +51,7 @@ int main(int argc, char* argv[])
 	}else{
 		src = NULL;/*remplacer par usb*/
 		typeSrc = 0;
+		exit(0);
 	}
 
 	while(continuer){
@@ -76,12 +77,14 @@ int main(int argc, char* argv[])
 			absorb.acir = acIRPH;
 			mesure(&oxyDatas, absorb);
 
+			printf("%d\t%d\n", oxyDatas.pouls, oxyDatas.spo2);
 			affichage(oxyDatas);
 		}else if(reussite == 1){
 			err++;
 
 			if(err >= 10){
 				continuer = 0;
+				printf("Plus de 10 erreurs de lecture consécutives.\n");
 			}
 		}else{
 			continuer = 0;
