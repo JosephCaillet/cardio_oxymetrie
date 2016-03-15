@@ -1,5 +1,4 @@
 *.o
 carOxyAcq.exe
 errors.log
-.verrouData
 Data.txt
