@@ -4,16 +4,12 @@
 void mesure(Oxy* oxy, Absorp absorp)
 {
 	int periodeAquise = 0;
-	static AcMesures acRm = {0,0,0, 0,0, SEUIL_BAS,SEUIL_HAUT, 0.0};
-	static AcMesures acIRm = {0,0,0, 0,0, SEUIL_BAS,SEUIL_HAUT, 0.0};
+	static AcMesures acRm = {0,0, 0, SEUIL_BAS,SEUIL_HAUT, 0.0};
+	static AcMesures acIRm = {0,0, 0, SEUIL_BAS,SEUIL_HAUT, 0.0};
 
 	//majMaxMinSeuil
 	majMaxMinDepasseSeuil(&acRm, absorp.acr);
 	majMaxMinDepasseSeuil(&acIRm, absorp.acir);
-
-	//upd passage par 0
-	majPassageZero(&acRm, absorp.acr);
-	majPassageZero(&acIRm, absorp.acir);
 
 	//updBpm
 	periodeAquise += majBpm(&acRm);
@@ -38,29 +34,19 @@ void majMaxMinDepasseSeuil(AcMesures* ac, int acNew)
 		ac->max = acNew;
 		ac->seuilHautPasse = 1;
 	}
-	else if(acNew < ac->min)
+	else if(acNew < ac->min && ac->seuilHautPasse == 1)//On veux faire les vérif sur un seuil bas précédé d'un seuil haut.
 	{
 		ac->min = acNew;
 		ac->seuilBasPasse = 1;
 	}
 }
 
-void majPassageZero(AcMesures* ac, int acNew)
-{
-	if(ac->lastValue * acNew <= 0)
-	{
-		ac->passagePar0++;
-	}
-	ac->lastValue = acNew;
-}
-
 int majBpm(AcMesures* ac)
 {
-	if(ac->seuilBasPasse == 1 && ac->seuilHautPasse == 1 && ac->passagePar0 > 2)
+	if(ac->seuilBasPasse == 1)//Si on est passé par le seuil bas, implique passage seuil haut.
 	{
 		ac->seuilHautPasse = 0;
 		ac->seuilBasPasse = 0;
-		ac->passagePar0 = 1;
 
 		ac->min = SEUIL_BAS;
 		ac->max = SEUIL_HAUT;

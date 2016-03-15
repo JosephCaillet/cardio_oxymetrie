@@ -8,11 +8,9 @@
 
 struct AcMesures
 {
-	int passagePar0;
 	int seuilHautPasse;
 	int seuilBasPasse;
 
-	int lastValue;
 	int nbPoints;
 
 	int min;
@@ -25,7 +23,6 @@ typedef struct AcMesures AcMesures;
 void mesure(Oxy* oxy, Absorp absorp);
 
 void majMaxMinDepasseSeuil(AcMesures* ac, int acNew);
-void majPassageZero(AcMesures* ac, int acNew);
 int majBpm(AcMesures* ac);
 
 float calculSPo2(float acRmax, float acrmin, float acIRmax, float acIRmin, int dcR, int dcIR);
