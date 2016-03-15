@@ -6,6 +6,6 @@
 
 int lecture(void* source, int typeSource, Absorp* absorb);
 
-int lectureFichier(FILE*,  Absorp* absorb);
-int lectureUSB(FILE*,  Absorp* absorb);
+int lectureFichier(FILE* source,  Absorp* absorb);
+int lectureUSB(FILE* source,  Absorp* absorb);
 #endif

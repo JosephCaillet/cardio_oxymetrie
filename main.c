@@ -27,7 +27,7 @@ int main(int argc, char* argv[])
 	acIRPH - acIR filtré passe haut
 	acIRPHPrec - acIR passe haut précedent
 	*/
-	char* src;
+	void* src;
 
 	initDataBuffer(&buffer);
 	reussite = 0;
@@ -41,10 +41,15 @@ int main(int argc, char* argv[])
 	acIRPH = 0;
 
 	if(argc == 1){
-		src = argv[0];
+		src = fopen(argv[1], "r");
+		if(src == NULL)
+		{
+			printf("Impossible ouvrir fichier source.");
+			exit(1);
+		}
 		typeSrc = 1;
 	}else{
-		src = "";
+		src = NULL;/*remplacer par usb*/
 		typeSrc = 0;
 	}
 
