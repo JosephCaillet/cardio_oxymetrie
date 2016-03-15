@@ -1,30 +1,46 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "lecture.c"
-#include "firPB.c"
-#include "iirPH.c"
-#include "mesure.c"
-#include "lecture.c"
-#include "affichage.c"
-#include "dataBuffer.c"
+#include "lecture.h"
+#include "firPB.h"
+#include "iirPH.h"
+#include "mesure.h"
+#include "lecture.h"
+#include "affichage.h"
+#include "dataBuffer.h"
 
 
 int main(int argc, char const *argv[])
 {
-	Data acData;
+	Absorp absorb;
 	DataBuffer buffer;
 	Oxy oxyDatas;
-	int reussite, acRPB, acRPBPrec, acRPH, acRPHPrec, acIRPB, acIRPBPrec, acIRPH, acIRPHPrec, dcR, dcIR, bpm, continuer, err, typeSrc;
-	float rsIR;
-	String src;
+	int reussite, continuer, err, bpm, rsIR, typeSrc;
+	float acRPB, acRPBPrec, acRPH, acRPHPrec, acIRPB, acIRPBPrec, acIRPH, acIRPHPrec;
+	/*
+	acRPB - acR filtré passe bas
+	acRPBPrec - acR filtré passe bas précedent
+	acRPH - acR filtré passe haut
+	acRPHPrec  - acR filtré passe haut précedent
+	
+	acIRPB - acIR filtré passe bas
+	acIRPBPrec - acIr filtré passe bas précedent
+	acIRPH - acIR filtré passe haut
+	acIRPHPrec - acIR passe haut précedent
+	*/
+	char* src;
 
 	initDataBuffer(&buffer);
+	reussite = 0;
 	continuer = 1;
+	err = 0;
+	bpm = 0;
+	rsIR = 0;
+	typeSrc = 0;
+
 	acRPB = 0;
 	acIRPB = 0;
 	acRPH = 0;
 	acIRPH = 0;
-	err = 0;
 
 	if(argc == 1){
 		src = argv[0];
@@ -36,12 +52,12 @@ int main(int argc, char const *argv[])
 
 	while(continuer){
 
-		reussite = lecture(src, typeSrc, &acData, &dcR, &dcIR);
+		reussite = lecture(src, typeSrc, &absorb);
 
 		if(reussite == 0){
 			err = 0;
 
-			push_front(&buffer, acData);
+			push_front(&buffer, absorb);
 			acRPBPrec = acRPB;
 			acIRPBPrec = acIRPB;
 
@@ -53,7 +69,9 @@ int main(int argc, char const *argv[])
 			acIRPHPrec = acIRPH;
 			acIRPH = iirPH(acIRPB, acIRPBPrec, acIRPHPrec);
 
-			mesure(&bpm, &rsIR, acRPH, acIRPH, dcR, dcIR);
+			absorb.acR = acRPH;
+			absorb.acIR = acIRPH;
+			mesure(&bpm, &rsIR, absorb);
 
 			oxyDatas.spo2 = rsIR;
 			oxyDatas.pouls = bpm;

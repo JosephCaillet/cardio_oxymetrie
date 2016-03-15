@@ -4,8 +4,8 @@
 #include "dataBuffer.h"
 #include <stdio.h>
 
-int lecture(void* source, int typeSource, Absorb* absorb);
+int lecture(void* source, int typeSource, Absorp* absorb);
 
-int lectureFichier(FILE*,  Absorb* absorb);
-int lectureUSB(FILE*,  Absorb* absorb);
+int lectureFichier(FILE*,  Absorp* absorb);
+int lectureUSB(FILE*,  Absorp* absorb);
 #endif

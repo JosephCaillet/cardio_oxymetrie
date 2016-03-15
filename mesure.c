@@ -1,18 +1,18 @@
 #include "mesure.h"
 
-void mesure(int* bpm, float* rsIR, int acR, int acIR, int dcR, int dcIR)
+void mesure(int* bpm, float* rsIR, Absorp absorp)
 {
 	int periodeAquise = 0;
 	static AcMesures acRm = {0,0,0, 0, 0,0, SEUIL_BAS,SEUIL_HAUT, 0.0};
 	static AcMesures acIRm = {0,0,0, 0, 0,0, SEUIL_BAS,SEUIL_HAUT, 0.0};
 
 	//majMaxMinSeuil
-	majMaxMinDepasseSeuil(&acRm, acR);
-	majMaxMinDepasseSeuil(&acIRm, acIR);
+	majMaxMinDepasseSeuil(&acRm, absorp.acR);
+	majMaxMinDepasseSeuil(&acIRm, absorp.acIR);
 
 	//upd passage par 0
-	majPassageZero(&acRm, acR);
-	majPassageZero(&acIRm, acIR);
+	majPassageZero(&acRm, absorp.acR);
+	majPassageZero(&acIRm, absorp.acIR);
 
 	//updBpm
 	periodeAquise += majBpm(&acRm);
@@ -21,7 +21,7 @@ void mesure(int* bpm, float* rsIR, int acR, int acIR, int dcR, int dcIR)
 	//updSPo2	
 	if(periodeAquise > 0)
 	{
-		*rsIR = calculSPo2(acRm.max, acRm.min, acIRm.max, acIRm.min, dcR, dcIR);
+		*rsIR = calculSPo2(acRm.max, acRm.min, acIRm.max, acIRm.min, absorp.dcR, absorp.dcIR);
 		*bpm = (acRm.bpm + acIRm.bpm) / 2.0;
 	}
 }

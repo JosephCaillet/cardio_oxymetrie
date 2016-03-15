@@ -2,6 +2,7 @@
 #define MESURE
 
 #include <time.h>
+#include "dataBuffer.h"
 
 #define SEUIL_HAUT 500
 #define SEUIL_BAS -500
@@ -24,7 +25,7 @@ struct AcMesures
 };
 typedef struct AcMesures AcMesures;
 
-void mesure(int* bpm, float* rsIR, int acR, int acIR, int dcR, int dcIR);
+void mesure(int* bpm, float* rsIR, Absorp absorp);
 
 void majMaxMinDepasseSeuil(AcMesures* ac, int acNew);
 void majPassageZero(AcMesures* ac, int acNew);
