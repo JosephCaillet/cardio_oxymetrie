@@ -8,6 +8,6 @@ struct Oxy
 };
 typedef struct Oxy Oxy;
 
-void affichage(int bpm, float rsIR);
+void affichage(Oxy oxyDatas);
 
 #endif
