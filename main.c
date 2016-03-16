@@ -79,7 +79,7 @@ int main(int argc, char* argv[])
 
 			absorb.acr = acRPH;
 			absorb.acir = acIRPH;
-			oxyDatas = mesure(absorb, &acRm, &acIRm);
+			mesure(&oxyDatas, absorb, &acRm, &acIRm);
 
 			//oxyDatas.pouls += lastBpm;
 			//oxyDatas.pouls /= 2;

@@ -24,7 +24,7 @@ struct AcMesures
 };
 typedef struct AcMesures AcMesures;
 
-Oxy mesure(Absorp absorp, AcMesures* acRm, AcMesures* acIRm);
+void mesure(Oxy* oxy, Absorp absorp, AcMesures* acRm, AcMesures* acIRm);
 
 void majMaxMinDepasseSeuil(AcMesures* ac, int acNew);
 void majPassageZero(AcMesures* ac, int acNew);
