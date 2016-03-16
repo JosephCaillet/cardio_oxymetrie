@@ -6,14 +6,15 @@ void mesure(Oxy* oxy, Absorp absorp)
 	int periodeAquise = 0;
 	static AcMesures acRm = {0,0,0, 0,0, SEUIL_BAS,SEUIL_HAUT, 0.0, "R"};
 	static AcMesures acIRm = {0,0,0, 0,0, SEUIL_BAS,SEUIL_HAUT, 0.0, "IR"};
+	//static int mesure = 0;
 
 	//majMaxMinSeuil
 	majMaxMinDepasseSeuil(&acRm, absorp.acr);
 	majMaxMinDepasseSeuil(&acIRm, absorp.acir);
 
 	//upd passage par 0
-	majPassageZero(&acRm, absorp.acr);
-	majPassageZero(&acIRm, absorp.acir);
+	//majPassageZero(&acRm, absorp.acr);
+	//majPassageZero(&acIRm, absorp.acir);
 
 	//updBpm
 	periodeAquise += majBpm(&acRm);
@@ -26,6 +27,7 @@ void mesure(Oxy* oxy, Absorp absorp)
 		oxy->pouls = (acRm.bpm + acIRm.bpm) / 2.0f;
 		printf("Rbmp: %f - IRbmp: %f\n", acRm.bpm, acIRm.bpm);
 	}
+	//printf("%d --- ", ++mesure);
 }
 //85spo2
 //70bpm
@@ -44,23 +46,23 @@ void majMaxMinDepasseSeuil(AcMesures* ac, int acNew)
 	}
 }
 
-void majPassageZero(AcMesures* ac, int acNew)
+/*void majPassageZero(AcMesures* ac, int acNew)
 {
-	if(ac->lastValue * acNew <= 0)
+	if(ac->lastValue * acNew < 0)
 	{
 		ac->passagePar0++;
-		printf("Passage par zéro n° %d pour %s\n", ac->passagePar0, ac->s);
+		printf("Passage par zéro n° %d pour %s - old : %d new : %d\n", ac->passagePar0, ac->s, ac->lastValue, acNew);
 	}
 	ac->lastValue = acNew;
-}
+}*/
 
 int majBpm(AcMesures* ac)
 {
-	if(ac->seuilBasPasse == 1 && ac->passagePar0 > 2)//Si on est passé par le seuil bas, implique passage seuil haut.
+	if(ac->seuilBasPasse == 1)// && ac->seuilHautPasse == 1 && ac->passagePar0 > 2)//Si on est passé par le seuil bas, implique passage seuil haut.
 	{
 		ac->seuilHautPasse = 0;
 		ac->seuilBasPasse = 0;
-		ac->passagePar0 = 1;
+		//ac->passagePar0 = 1;
 
 		ac->min = SEUIL_BAS;
 		ac->max = SEUIL_HAUT;
