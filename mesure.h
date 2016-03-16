@@ -19,6 +19,8 @@ struct AcMesures
 	int max;
 
 	float bpm;
+
+	char* s;
 };
 typedef struct AcMesures AcMesures;
 

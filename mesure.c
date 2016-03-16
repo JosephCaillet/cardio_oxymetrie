@@ -4,8 +4,8 @@
 void mesure(Oxy* oxy, Absorp absorp)
 {
 	int periodeAquise = 0;
-	static AcMesures acRm = {0,0,0, 0,0, SEUIL_BAS,SEUIL_HAUT, 0.0};
-	static AcMesures acIRm = {0,0,0, 0,0, SEUIL_BAS,SEUIL_HAUT, 0.0};
+	static AcMesures acRm = {0,0,0, 0,0, SEUIL_BAS,SEUIL_HAUT, 0.0, "R"};
+	static AcMesures acIRm = {0,0,0, 0,0, SEUIL_BAS,SEUIL_HAUT, 0.0, "IR"};
 
 	//majMaxMinSeuil
 	majMaxMinDepasseSeuil(&acRm, absorp.acr);
@@ -24,7 +24,6 @@ void mesure(Oxy* oxy, Absorp absorp)
 	{
 		oxy->spo2 = calculSPo2(acRm.max, acRm.min, acIRm.max, acIRm.min, absorp.dcr, absorp.dcir);
 		oxy->pouls = (acRm.bpm + acIRm.bpm) / 2.0f;
-		printf("Une période à été aquise ! %d\n", acRm.passagePar0);
 		printf("Rbmp: %f - IRbmp: %f\n", acRm.bpm, acIRm.bpm);
 	}
 }
@@ -50,7 +49,7 @@ void majPassageZero(AcMesures* ac, int acNew)
 	if(ac->lastValue * acNew <= 0)
 	{
 		ac->passagePar0++;
-		printf("Passage par zéro n° %d\n", ac->passagePar0);
+		printf("Passage par zéro n° %d pour %s\n", ac->passagePar0, ac->s);
 	}
 	ac->lastValue = acNew;
 }
@@ -66,9 +65,9 @@ int majBpm(AcMesures* ac)
 		ac->min = SEUIL_BAS;
 		ac->max = SEUIL_HAUT;
 
-		ac->bpm = (float)30000/(float)ac->nbPoints;
+		ac->bpm = (float)30000 / (float)ac->nbPoints;
 		ac->nbPoints = 1;
-
+		printf("Une période à été aquise sur : %s\n", ac->s);
 		return 1;
 	}
 
