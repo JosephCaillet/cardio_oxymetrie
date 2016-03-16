@@ -1,8 +1,9 @@
 #include "mesure.h"
 #include <stdio.h>
 
-void mesure(Oxy* oxy, Absorp absorp, AcMesures* acRm, AcMesures* acIRm)
+Oxy mesure(Absorp absorp, AcMesures* acRm, AcMesures* acIRm)
 {
+	Oxy oxy;
 	int periodeAquise = 0;
 	//static int mesure = 0;
 
@@ -21,11 +22,12 @@ void mesure(Oxy* oxy, Absorp absorp, AcMesures* acRm, AcMesures* acIRm)
 	//updSPo2	
 	if(periodeAquise > 0)
 	{
-		oxy->spo2 = calculSPo2(acRm->max, acRm->min, acIRm->max, acIRm->min, absorp.dcr, absorp.dcir);
-		oxy->pouls = (acRm->bpm + acIRm->bpm) / 2.0f;
+		oxy.spo2 = calculSPo2(acRm->max, acRm->min, acIRm->max, acIRm->min, absorp.dcr, absorp.dcir);
+		oxy.pouls = (acRm->bpm + acIRm->bpm) / 2.0f;
 		printf("Rbmp: %f - IRbmp: %f\n", acRm->bpm, acIRm->bpm);
 	}
 	//printf("%d --- ", ++mesure);
+	return oxy;
 }
 //85spo2
 //70bpm
