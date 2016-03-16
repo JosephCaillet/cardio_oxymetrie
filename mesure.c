@@ -1,31 +1,29 @@
 #include "mesure.h"
 #include <stdio.h>
 
-void mesure(Oxy* oxy, Absorp absorp)
+void mesure(Oxy* oxy, Absorp absorp, AcMesures* acRm, AcMesures* acIRm)
 {
 	int periodeAquise = 0;
-	static AcMesures acRm = {0,0,0, 0,0, SEUIL_BAS,SEUIL_HAUT, 0.0, "R"};
-	static AcMesures acIRm = {0,0,0, 0,0, SEUIL_BAS,SEUIL_HAUT, 0.0, "IR"};
 	//static int mesure = 0;
 
 	//majMaxMinSeuil
-	majMaxMinDepasseSeuil(&acRm, absorp.acr);
-	majMaxMinDepasseSeuil(&acIRm, absorp.acir);
+	majMaxMinDepasseSeuil(acRm, absorp.acr);
+	majMaxMinDepasseSeuil(acIRm, absorp.acir);
 
 	//upd passage par 0
 	//majPassageZero(&acRm, absorp.acr);
 	//majPassageZero(&acIRm, absorp.acir);
 
 	//updBpm
-	periodeAquise += majBpm(&acRm);
-	periodeAquise += majBpm(&acIRm);
+	periodeAquise += majBpm(acRm);
+	periodeAquise += majBpm(acIRm);
 
 	//updSPo2	
 	if(periodeAquise > 0)
 	{
-		oxy->spo2 = calculSPo2(acRm.max, acRm.min, acIRm.max, acIRm.min, absorp.dcr, absorp.dcir);
-		oxy->pouls = (acRm.bpm + acIRm.bpm) / 2.0f;
-		printf("Rbmp: %f - IRbmp: %f\n", acRm.bpm, acIRm.bpm);
+		oxy->spo2 = calculSPo2(acRm->max, acRm->min, acIRm->max, acIRm->min, absorp.dcr, absorp.dcir);
+		oxy->pouls = (acRm->bpm + acIRm->bpm) / 2.0f;
+		printf("Rbmp: %f - IRbmp: %f\n", acRm->bpm, acIRm->bpm);
 	}
 	//printf("%d --- ", ++mesure);
 }

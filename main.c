@@ -30,7 +30,8 @@ int main(int argc, char* argv[])
 	*/
 	void* src;
 
-	setbuf(stdout, NULL);
+	AcMesures acRm = {0,0,0, 0,0, SEUIL_BAS,SEUIL_HAUT, 0.0, "R"};
+	AcMesures acIRm = {0,0,0, 0,0, SEUIL_BAS,SEUIL_HAUT, 0.0, "IR"};
 
 	initDataBuffer(&buffer);
 	reussite = 0;
@@ -78,7 +79,7 @@ int main(int argc, char* argv[])
 
 			absorb.acr = acRPH;
 			absorb.acir = acIRPH;
-			mesure(&oxyDatas, absorb);
+			mesure(&oxyDatas, absorb, &acRm, &acIRm);
 
 			//oxyDatas.pouls += lastBpm;
 			//oxyDatas.pouls /= 2;
