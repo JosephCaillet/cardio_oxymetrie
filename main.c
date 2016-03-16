@@ -30,6 +30,8 @@ int main(int argc, char* argv[])
 	*/
 	void* src;
 
+	setbuf(stdout, NULL);
+
 	initDataBuffer(&buffer);
 	reussite = 0;
 	continuer = 1;
