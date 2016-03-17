@@ -8,19 +8,18 @@ void initBuffer(DataBuffer* db)
 {
 	for(int i = 0; i < TAILLE_BUFFER; i++)
 	{
-		db->data[i].x = 0;
-		db->data[i].y = 0;
+		db->data[i] = INIT_VALUE;
 	}
 	db->index = 0;
 }
 
-void pushBackBuffer(DataBuffer* db, Coord coord)
+void pushBackBuffer(DataBuffer* db, int data)
 {
-	db->data[db->index] = coord;
-	db->index + 1 ? db->index++ : (db->index = 0);
+	db->data[db->index] = data;
+	db->index + 1 != TAILLE_BUFFER ? db->index++ : (db->index = 0);
 }
 
-Coord atBuffer(DataBuffer* db, int index)
+int atBuffer(DataBuffer* db, int index)
 {
 	return db->data[index];
 }
