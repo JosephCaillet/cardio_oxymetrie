@@ -20,38 +20,38 @@
 #define COURBE_OFFSET_Y 50
 #define COURBE_OFFSET_X FENETRE_LARGEUR - COURBE_LONGUEUR - COURBE_OFFSET_Y / 2
 
-#define POINT_HAUTEUR 1
-#define POINT_LARGEUR 1
+#define POINT_HAUTEUR 3
+#define POINT_LARGEUR 3
 
 #define TEXTE_OFFSET_X (COURBE_OFFSET_X) / 2
 #define TEXTE_GAP_Y 50
 
-#define COULEUR_SPO2_R 255
-#define COULEUR_SPO2_V 0
-#define COULEUR_SPO2_B 0
+#define COULEUR_SPO2_R 231
+#define COULEUR_SPO2_V 76
+#define COULEUR_SPO2_B 60
 #define COULEUR_SPO2 COULEUR_SPO2_R, COULEUR_SPO2_V, COULEUR_SPO2_B
 
-#define COULEUR_BPM_R 0
-#define COULEUR_BPM_V 255
-#define COULEUR_BPM_B 0
+#define COULEUR_BPM_R 46
+#define COULEUR_BPM_V 204
+#define COULEUR_BPM_B 113
 #define COULEUR_BPM COULEUR_BPM_R, COULEUR_BPM_V, COULEUR_BPM_B
 
-#define COULEUR_ACR_R 0
-#define COULEUR_ACR_V 0
-#define COULEUR_ACR_B 255
+#define COULEUR_ACR_R 52
+#define COULEUR_ACR_V 152
+#define COULEUR_ACR_B 219
 #define COULEUR_ACR COULEUR_ACR_R, COULEUR_ACR_V, COULEUR_ACR_B
 
-#define COULEUR_ACIR_R 0
-#define COULEUR_ACIR_V 0
-#define COULEUR_ACIR_B 255
+#define COULEUR_ACIR_R 52
+#define COULEUR_ACIR_V 152
+#define COULEUR_ACIR_B 219
 #define COULEUR_ACIR COULEUR_ACIR_R, COULEUR_ACIR_V, COULEUR_ACIR_B
 
-#define COULEUR_FOND_ECRAN_R 150
-#define COULEUR_FOND_ECRAN_V 150
-#define COULEUR_FOND_ECRAN_B 150
+#define COULEUR_FOND_ECRAN_R 39
+#define COULEUR_FOND_ECRAN_V 40
+#define COULEUR_FOND_ECRAN_B 34
 #define COULEUR_FOND_ECRAN COULEUR_FOND_ECRAN_R, COULEUR_FOND_ECRAN_V, COULEUR_FOND_ECRAN_B
 
-#define COULEUR_FOND_COURBE 50,50,50
+#define COULEUR_FOND_COURBE 44, 62, 80
 #define COULEUR_ZERO_COURBE 200,200,200
 
 #define COEFF_SPO2 0.036
@@ -88,7 +88,7 @@ typedef struct Fenetre Fenetre;
 int initFenetre(Fenetre* fenetre);
 void deleteFenetre(Fenetre* fenetre);
 void clearFenetre(Fenetre* fenetre);
-void drawCourbe(Fenetre* fenetre, int numCourbe, DataBuffer* dataBuffer);
+void drawCourbe(Fenetre* fenetre, int numCourbe, DataBuffer* dataBuffer, int offsetOrigin);
 void drawValeurs(Fenetre* fenetre, SDL_Surface* label, int valeur, char* txt, SDL_Color couleur, int num);
 
 #endif //IHM_FENETRE_H

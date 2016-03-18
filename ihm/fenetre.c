@@ -66,8 +66,8 @@ int initFenetre(Fenetre* fenetre)
 	fenetre->pxBPM = SDL_CreateRGBSurface(SDL_HWSURFACE, POINT_LARGEUR, POINT_HAUTEUR, 32, 0, 0, 0, 0);
 	fenetre->pxACR = SDL_CreateRGBSurface(SDL_HWSURFACE, POINT_LARGEUR, POINT_HAUTEUR, 32, 0, 0, 0, 0);
 	fenetre->pxACIR = SDL_CreateRGBSurface(SDL_HWSURFACE, POINT_LARGEUR, POINT_HAUTEUR, 32, 0, 0, 0, 0);
-	fenetre->bgCourbe = SDL_CreateRGBSurface(SDL_HWSURFACE, COURBE_LONGUEUR, COURBE_HAUTEUR, 32, 0, 0, 0, 0);
-	fenetre->zeroCourbe = SDL_CreateRGBSurface(SDL_HWSURFACE, COURBE_LONGUEUR, 1, 32, 0, 0, 0, 0);
+	fenetre->bgCourbe = SDL_CreateRGBSurface(SDL_HWSURFACE, COURBE_LONGUEUR + POINT_LARGEUR - 1, COURBE_HAUTEUR, 32, 0, 0, 0, 0);
+	fenetre->zeroCourbe = SDL_CreateRGBSurface(SDL_HWSURFACE, COURBE_LONGUEUR + POINT_LARGEUR - 1, POINT_HAUTEUR, 32, 0, 0, 0, 0);
 
 	SDL_FillRect(fenetre->pxSPO2, NULL, SDL_MapRGB(fenetre->screen->format, COULEUR_SPO2));
 	SDL_FillRect(fenetre->pxBPM, NULL, SDL_MapRGB(fenetre->screen->format, COULEUR_BPM));
@@ -107,17 +107,18 @@ void clearFenetre(Fenetre* fenetre)
 	for(int i = 0; i < 4; i++)
 	{
 		SDL_BlitSurface(fenetre->bgCourbe, NULL, fenetre->screen, &pos);
-		pos.y += COURBE_HAUTEUR / 2;
-		SDL_BlitSurface(fenetre->zeroCourbe, NULL, fenetre->screen, &pos);
-		pos.y += COURBE_HAUTEUR / 2 + COURBE_OFFSET_Y;
+		pos.y += COURBE_HAUTEUR + COURBE_OFFSET_Y;
 	}
 }
 
-void drawCourbe(Fenetre* fenetre, int numCourbe, DataBuffer* dataBuffer)
+void drawCourbe(Fenetre* fenetre, int numCourbe, DataBuffer* dataBuffer, int offsetOrigin)
 {
 	SDL_Rect pos;
 	pos.x = COURBE_OFFSET_X;
-	int y = (COURBE_OFFSET_Y + COURBE_HAUTEUR) * ( 0.5 + numCourbe-1);
+	int y = (COURBE_OFFSET_Y + COURBE_HAUTEUR) * ( 0.5 + numCourbe-1) + offsetOrigin;
+
+	pos.y = y - fenetre->zeroCourbe->h / 2;
+	SDL_BlitSurface(fenetre->zeroCourbe, NULL, fenetre->screen, &pos);
 
 	SDL_Surface* px = NULL;
 	float coeff = 0;
