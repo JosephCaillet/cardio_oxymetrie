@@ -30,8 +30,8 @@ int main(int argc, char* argv[])
 	*/
 	void* src;
 
-	AcMesures acRm = {0,0,0, 0,0, SEUIL_BAS,SEUIL_HAUT, 0.0, "R"};
-	AcMesures acIRm = {0,0,0, 0,0, SEUIL_BAS,SEUIL_HAUT, 0.0, "IR"};
+	AcMesures acRm = {0,0,0, 0,0, SEUIL_BAS,0,SEUIL_HAUT,0, 0.0, "R"};
+	AcMesures acIRm = {0,0,0, 0,0, SEUIL_BAS,0,SEUIL_HAUT,0, 0.0, "IR"};
 
 	initDataBuffer(&buffer);
 	reussite = 0;

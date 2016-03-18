@@ -16,7 +16,9 @@ struct AcMesures
 	int nbPoints;
 
 	int min;
+	int minValid;
 	int max;
+	int maxValid;
 
 	float bpm;
 
@@ -32,5 +34,7 @@ int majBpm(AcMesures* ac);
 
 float calculSPo2(float acRmax, float acrmin, float acIRmax, float acIRmin, int dcR, int dcIR);
 float convertRatioToSPO2(float ratio);
+
+void affAcMesure(AcMesures ac);
 
 #endif

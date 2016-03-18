@@ -23,7 +23,9 @@ void mesure(Oxy* oxy, Absorp absorp, AcMesures* acRm, AcMesures* acIRm)
 	{
 		oxy->spo2 = calculSPo2(acRm->max, acRm->min, acIRm->max, acIRm->min, absorp.dcr, absorp.dcir);
 		oxy->pouls = (acRm->bpm + acIRm->bpm) / 2.0f;
-		printf("Rbmp: %f - IRbmp: %f\n", acRm->bpm, acIRm->bpm);
+		//printf("Rbmp: %f - IRbmp: %f\n", acRm->bpm, acIRm->bpm);
+		//printf("ACR: %f - ACIR: %f\n", absorp.acr, absorp.acir);
+		//printf("-- Absorb --\nacr : %f\ndcr : %f\nacir : %f\ndcir : %f\n", absorp.acr, absorp.dcr, absorp.acir, absorp.dcir);
 	}
 	//printf("%d --- ", ++mesure);
 }
@@ -58,6 +60,9 @@ int majBpm(AcMesures* ac)
 {
 	if(ac->seuilBasPasse == 1)// && ac->seuilHautPasse == 1 && ac->passagePar0 > 2)//Si on est passé par le seuil bas, implique passage seuil haut.
 	{
+		printf("Une période à été aquise sur : %s\n", ac->s);
+		//affAcMesure(*ac);
+		
 		ac->seuilHautPasse = 0;
 		ac->seuilBasPasse = 0;
 		//ac->passagePar0 = 1;
@@ -67,7 +72,7 @@ int majBpm(AcMesures* ac)
 
 		ac->bpm = (float)30000 / (float)ac->nbPoints;
 		ac->nbPoints = 1;
-		printf("Une période à été aquise sur : %s\n", ac->s);
+		
 		return 1;
 	}
 
@@ -93,4 +98,17 @@ float convertRatioToSPO2(float ratio)
 		return -25 * ratio + 110;
 	}
 	return -35.71429 * ratio + 121.4285714;
+}
+
+void affAcMesure(AcMesures ac)
+{
+	printf("-- %s --\n", ac.s);
+	printf("SeuilHautPasse : %d\n", ac.seuilHautPasse);
+	printf("SeuilBasPasse : %d\n", ac.seuilBasPasse);
+
+	printf("LastValue : %d\n", ac.lastValue);
+	printf("NbPoints: %d\n", ac.nbPoints);
+
+	printf("Min : %d\n", ac.min);
+	printf("Max : %d\n", ac.max);
 }
