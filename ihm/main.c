@@ -46,6 +46,10 @@ int main()
 		drawCourbe(&fenetre, 2, &bpm);
 		drawCourbe(&fenetre, 3, &acr);
 		drawCourbe(&fenetre, 4, &acir);
+		drawValeurs(&fenetre, fenetre.txtSpo2, m.spo2, "%d %", fenetre.colorSpo2, 1);
+		drawValeurs(&fenetre, fenetre.txtBpm, m.bpm, "%d", fenetre.colorBpm, 2);
+		drawValeurs(&fenetre, fenetre.txtAcr, m.acr, "%d", fenetre.colorAcr, 3);
+		drawValeurs(&fenetre, fenetre.txtAcir, m.acir, "%d", fenetre.colorAcir, 4);
 		SDL_Flip(fenetre.screen);
 	}
 
