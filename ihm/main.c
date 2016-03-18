@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
 		{
 			continuer = 0;
 		}
-		//SDL_Delay(10);
+		
 		if(tempsActuel - tempsPrecedent > TEMPS_ACQUISITION)
 		{
 			clearFenetre(&fenetre);
@@ -66,6 +66,7 @@ int main(int argc, char *argv[])
 		else
 		{
 			SDL_Delay(TEMPS_ACQUISITION - (tempsActuel - tempsPrecedent));
+			//printf("%d\n", TEMPS_ACQUISITION - (tempsActuel - tempsPrecedent));
 		}
 	}
 
