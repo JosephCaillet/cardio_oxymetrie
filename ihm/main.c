@@ -6,7 +6,7 @@
 #include "fenetre.h"
 #include "lecture.h"
 
-int main()
+int main(int argc, char *argv[])
 {
 	setbuf(stdout, NULL);
 

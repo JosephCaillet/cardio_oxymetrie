@@ -1,7 +1,7 @@
 FLAGS = -std=c99 -Wall -Wextra -g #-pedantic
 
 carOxyIhm: main.o dataBuffer.o dataBuffer.o fenetre.o lecture.o
-	gcc $(FLAGS) main.o dataBuffer.o fenetre.o lecture.o -o carOxyIhm.exe -lSDL -lSDL_ttf
+	gcc $(FLAGS) main.o dataBuffer.o fenetre.o lecture.o -o carOxyIhm.exe -lmingw32 -lSDLmain -lSDL -lSDL_ttf
 
 main.o: main.c dataBuffer.h fenetre.h lecture.h
 	gcc -c main.c $(FLAGS)
