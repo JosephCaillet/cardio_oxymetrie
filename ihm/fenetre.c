@@ -2,10 +2,8 @@
 // Created by joseph on 16/03/16.
 //
 
-#include <stdio.h>
-#include <stdlib.h>
-
 #include "fenetre.h"
+#include "button.h"
 
 int initFenetre(Fenetre* fenetre)
 {
@@ -76,11 +74,16 @@ int initFenetre(Fenetre* fenetre)
 	SDL_FillRect(fenetre->bgCourbe, NULL, SDL_MapRGB(fenetre->screen->format, COULEUR_FOND_COURBE));
 	SDL_FillRect(fenetre->zeroCourbe, NULL, SDL_MapRGB(fenetre->screen->format, COULEUR_ZERO_COURBE));
 
+	initButton(&fenetre->alarmeBas, fenetre, "Seuil Min :", 40, 10, 80, 2, 50, 50);
+	initButton(&fenetre->alarmeHaut, fenetre, "Seuil Max :", 100, 90, 200, 5, 50, 250);
+
 	return 0;
 }
 
 void deleteFenetre(Fenetre* fenetre)
 {
+	deleteButton(&fenetre->alarmeBas);
+	deleteButton(&fenetre->alarmeHaut);
 	TTF_CloseFont(fenetre->font);
 	TTF_Quit();
 	SDL_FreeSurface(fenetre->pxSPO2);

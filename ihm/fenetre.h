@@ -11,6 +11,7 @@
 #include <SDL/SDL_ttf.h>
 
 #include "dataBuffer.h"
+#include "button.h"
 
 #define FENETRE_HAUTEUR 800
 #define FENETRE_LARGEUR 1000
@@ -59,6 +60,9 @@
 #define COEFF_ACR 0.036
 #define COEFF_ACIR 0.036
 
+struct Button;
+typedef struct Button Button;
+
 struct Fenetre
 {
 	SDL_Surface* screen;
@@ -82,6 +86,9 @@ struct Fenetre
 	SDL_Color colorAcr;
 	SDL_Color colorAcir;
 	SDL_Color colorFondEcran;
+
+	Button alarmeBas;
+	Button alarmeHaut;
 };
 typedef struct Fenetre Fenetre;
 

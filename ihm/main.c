@@ -5,6 +5,7 @@
 #include "dataBuffer.h"
 #include "fenetre.h"
 #include "lecture.h"
+#include "button.h"
 
 #define TEMPS_ACQUISITION 10
 
@@ -19,7 +20,6 @@ int main(int argc, char *argv[])
 	initBuffer(&acir);
 
 	int tempsPrecedent = 0, tempsActuel = 0;
-
 	Fenetre fenetre;
 	if(initFenetre(&fenetre) == -1)
 	{
@@ -59,6 +59,10 @@ int main(int argc, char *argv[])
 			drawValeurs(&fenetre, fenetre.txtBpm, m.bpm, "%d", fenetre.colorBpm, 2);
 			drawValeurs(&fenetre, fenetre.txtAcr, m.acr, "%d", fenetre.colorAcr, 3);
 			drawValeurs(&fenetre, fenetre.txtAcir, m.acir, "%d", fenetre.colorAcir, 4);
+
+			drawButton(&(fenetre.alarmeBas));
+			drawButton(&(fenetre.alarmeHaut));
+
 			SDL_Flip(fenetre.screen);
 
 			tempsPrecedent = tempsActuel;
