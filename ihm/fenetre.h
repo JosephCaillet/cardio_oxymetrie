@@ -13,7 +13,7 @@
 #include "dataBuffer.h"
 #include "button.h"
 
-#define FENETRE_HAUTEUR 800
+#define FENETRE_HAUTEUR 900
 #define FENETRE_LARGEUR 1000
 
 #define COURBE_LONGUEUR TAILLE_BUFFER
@@ -52,13 +52,18 @@
 #define COULEUR_FOND_ECRAN_B 34
 #define COULEUR_FOND_ECRAN COULEUR_FOND_ECRAN_R, COULEUR_FOND_ECRAN_V, COULEUR_FOND_ECRAN_B
 
+#define COULEUR_FOND_ECRAN_ALARME_R 241
+#define COULEUR_FOND_ECRAN_ALARME_V 196
+#define COULEUR_FOND_ECRAN_ALARME_B 15
+#define COULEUR_FOND_ECRAN_ALARME COULEUR_FOND_ECRAN_ALARME_R, COULEUR_FOND_ECRAN_ALARME_V, COULEUR_FOND_ECRAN_ALARME_B
+
 #define COULEUR_FOND_COURBE 44, 62, 80
 #define COULEUR_ZERO_COURBE 200,200,200
 
-#define COEFF_SPO2 0.036
-#define COEFF_BPM 0.036
-#define COEFF_ACR 0.036
-#define COEFF_ACIR 0.036
+#define COEFF_SPO2 0.5
+#define COEFF_BPM 0.1
+#define COEFF_ACR 0.05
+#define COEFF_ACIR 0.2
 
 struct Button;
 typedef struct Button Button;
@@ -86,9 +91,12 @@ struct Fenetre
 	SDL_Color colorAcr;
 	SDL_Color colorAcir;
 	SDL_Color colorFondEcran;
+	SDL_Color colorFondEcranAlarme;
 
 	Button alarmeBas;
 	Button alarmeHaut;
+
+	int statusAlarme;
 };
 typedef struct Fenetre Fenetre;
 

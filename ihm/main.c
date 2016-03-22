@@ -19,8 +19,10 @@ int main(int argc, char *argv[])
 	initBuffer(&acr);
 	initBuffer(&acir);
 
-	int tempsPrecedent = 0, tempsActuel = 0;
+	int tempsPrecedent = 0, tempsActuel = 0, souriRelachee = 0;
+
 	Fenetre fenetre;
+	
 	if(initFenetre(&fenetre) == -1)
 	{
 		return -1;
@@ -33,17 +35,43 @@ int main(int argc, char *argv[])
 		tempsActuel = SDL_GetTicks();
 		
 		SDL_PollEvent(&event);
-		if(event.type == SDL_QUIT)
+		switch(event.type)
 		{
-			continuer = 0;
+			case SDL_QUIT:
+				continuer = 0;
+				break;
+			case SDL_MOUSEBUTTONDOWN:
+				if(souriRelachee == 1)
+				{
+					souriRelachee = 0;
+					puts("clic!");
+					if(updButtonState(&fenetre.alarmeBas, &event) == 0)
+					{
+						updButtonState(&fenetre.alarmeHaut, &event);
+					}
+					tempsPrecedent = SDL_GetTicks();
+				}
+				break;
+			case SDL_MOUSEBUTTONUP:
+				souriRelachee = 1;
+				break;
 		}
 		
 		if(tempsActuel - tempsPrecedent > TEMPS_ACQUISITION)
 		{
-			clearFenetre(&fenetre);
-
 			Mesures m;
 			getMesures(&m);
+
+			if(m.bpm < fenetre.alarmeBas.value || m.bpm > fenetre.alarmeHaut.value)
+			{
+				//fenetre.statusAlarme = 1;
+			} 
+			else
+			{
+				fenetre.statusAlarme = 0;
+			}
+
+			clearFenetre(&fenetre);
 
 			pushBackBuffer(&spo2, m.spo2);
 			pushBackBuffer(&bpm, m.bpm);

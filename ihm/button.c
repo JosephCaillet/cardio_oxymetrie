@@ -52,22 +52,34 @@ void updButtonValue(Button* btn)
 
 int updButtonState(Button* btn, SDL_Event* event)
 {
-	//if not outside subbtn up
-	btn->value += btn->pas;
-	if(btn->value > btn->max)
+	if(! (event->button.x < btn->pos.x + BUTTON_SUB_BUTTON_OFFSET ||
+			event->button.x > btn->pos.x + BUTTON_SUB_BUTTON_OFFSET + btn->txtSubButton->w ||
+			event->button.y < btn->pos.y ||
+			event->button.y > btn->pos.y + BUTTON_HAUTEUR ))
 	{
-		btn->value = btn->max;
+		puts("\tupd");
+		if(event->button.x < btn->pos.x + BUTTON_SUB_BUTTON_OFFSET + btn->txtSubButton->w / 2)
+		{
+			btn->value += btn->pas;
+			if(btn->value > btn->max)
+			{
+				btn->value = btn->max;
+			}
+			updButtonValue(btn);
+			return 1;
+		}
+		else
+		{
+			btn->value -= btn->pas;
+			if(btn->value < btn->min)
+			{
+				btn->value = btn->min;
+			}
+			updButtonValue(btn);
+			return 1;
+		}
 	}
-	updButtonValue(btn);
-	return 1;
-	//if not outside subbtn down
-	btn->value -= btn->pas;
-	if(btn->value < btn->min)
-	{
-		btn->value = btn->min;
-	}
-	updButtonValue(btn);
-	return 1;
+	return 0;
 }
 
 void drawButton(Button* btn) 

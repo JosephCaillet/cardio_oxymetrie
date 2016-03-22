@@ -55,6 +55,10 @@ int initFenetre(Fenetre* fenetre)
 	fenetre->colorFondEcran.g = COULEUR_FOND_ECRAN_V;
 	fenetre->colorFondEcran.b = COULEUR_FOND_ECRAN_B;
 
+	fenetre->colorFondEcranAlarme.r = COULEUR_FOND_ECRAN_ALARME_R;
+	fenetre->colorFondEcranAlarme.g = COULEUR_FOND_ECRAN_ALARME_V;
+	fenetre->colorFondEcranAlarme.b = COULEUR_FOND_ECRAN_ALARME_B;
+
 	fenetre->txtSpo2 = TTF_RenderText_Shaded(fenetre->font, "SPO2", fenetre->colorSpo2, fenetre->colorFondEcran);
 	fenetre->txtBpm = TTF_RenderText_Shaded(fenetre->font, "BPM", fenetre->colorBpm, fenetre->colorFondEcran);
 	fenetre->txtAcr = TTF_RenderText_Shaded(fenetre->font, "AC-R", fenetre->colorAcr, fenetre->colorFondEcran);
@@ -74,8 +78,8 @@ int initFenetre(Fenetre* fenetre)
 	SDL_FillRect(fenetre->bgCourbe, NULL, SDL_MapRGB(fenetre->screen->format, COULEUR_FOND_COURBE));
 	SDL_FillRect(fenetre->zeroCourbe, NULL, SDL_MapRGB(fenetre->screen->format, COULEUR_ZERO_COURBE));
 
-	initButton(&fenetre->alarmeBas, fenetre, "Seuil Min :", 40, 10, 80, 2, 50, 50);
-	initButton(&fenetre->alarmeHaut, fenetre, "Seuil Max :", 100, 90, 200, 5, 50, 250);
+	initButton(&fenetre->alarmeBas, fenetre, "Min :", 40, 10, 80, 2, (FENETRE_LARGEUR / 4) - BUTTON_LARGEUR / 2, 4 * (COURBE_HAUTEUR + COURBE_OFFSET_Y));
+	initButton(&fenetre->alarmeHaut, fenetre, "Max :", 100, 90, 200, 5, (FENETRE_LARGEUR / 4 * 3) - BUTTON_LARGEUR / 2,  4 * (COURBE_HAUTEUR + COURBE_OFFSET_Y));
 
 	return 0;
 }
@@ -101,7 +105,14 @@ void deleteFenetre(Fenetre* fenetre)
 
 void clearFenetre(Fenetre* fenetre)
 {
-	SDL_FillRect(fenetre->screen, NULL, SDL_MapRGB(fenetre->screen->format, COULEUR_FOND_ECRAN));
+	if(fenetre->statusAlarme == 1)
+	{
+		SDL_FillRect(fenetre->screen, NULL, SDL_MapRGB(fenetre->screen->format, COULEUR_FOND_ECRAN_ALARME));
+	}
+	else
+	{
+		SDL_FillRect(fenetre->screen, NULL, SDL_MapRGB(fenetre->screen->format, COULEUR_FOND_ECRAN));
+	}
 
 	SDL_Rect pos;
 	pos.x = COURBE_OFFSET_X;
@@ -130,7 +141,7 @@ void drawCourbe(Fenetre* fenetre, int numCourbe, DataBuffer* dataBuffer, int off
 	{
 		case 1:
 			px = fenetre->pxSPO2;
-			coeff = COEFF_BPM;
+			coeff = COEFF_SPO2;
 			break;
 		case 2:
 			px = fenetre->pxBPM;
