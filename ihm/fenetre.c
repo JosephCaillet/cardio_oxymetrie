@@ -197,7 +197,6 @@ void updFenetreTitre(Fenetre* fenetre)
 		memset(titre, FENETRE_TITRE_ALARME_SYMBOLE, numSymbole);
 		titre[numSymbole] = '\0';
 		strcat(titre, FENETRE_TITRE);
-		puts(titre);
 		memset(titre + numSymbole + FENETRE_TITRE_LONGUEUR, FENETRE_TITRE_ALARME_SYMBOLE, numSymbole);
 		titre[numSymbole * 2 + FENETRE_TITRE_LONGUEUR] = '\0';
 		numSymbole++;
