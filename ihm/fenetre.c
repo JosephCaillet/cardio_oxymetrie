@@ -182,3 +182,29 @@ void drawValeurs(Fenetre* fenetre, SDL_Surface* label, int valeur, char* txt, SD
 	SDL_BlitSurface(valeurSurface, NULL, fenetre->screen, &pos);
 	SDL_FreeSurface(valeurSurface);
 }
+
+void updFenetreTitre(Fenetre* fenetre)
+{
+	static int numSymbole = 1;
+	char titre[FENETRE_TITRE_ALARME_SYMBOLE_LONGUEUR * 2 + FENETRE_TITRE_LONGUEUR];
+	if(fenetre->statusAlarme == 0)
+	{
+		strcpy(titre, FENETRE_TITRE);
+		numSymbole = 0;
+	}
+	else
+	{
+		memset(titre, FENETRE_TITRE_ALARME_SYMBOLE, numSymbole);
+		titre[numSymbole] = '\0';
+		strcat(titre, FENETRE_TITRE);
+		puts(titre);
+		memset(titre + numSymbole + FENETRE_TITRE_LONGUEUR, FENETRE_TITRE_ALARME_SYMBOLE, numSymbole);
+		titre[numSymbole * 2 + FENETRE_TITRE_LONGUEUR] = '\0';
+		numSymbole++;
+		if(numSymbole > FENETRE_TITRE_ALARME_SYMBOLE_LONGUEUR)
+		{
+			numSymbole = 1;
+		}
+	}
+	SDL_WM_SetCaption(titre, NULL);
+}

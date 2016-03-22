@@ -7,7 +7,7 @@
 #include "lecture.h"
 #include "button.h"
 
-#define TEMPS_ACQUISITION 10
+#define TEMPS_ACQUISITION 20
 
 int main(int argc, char *argv[])
 {
@@ -71,6 +71,7 @@ int main(int argc, char *argv[])
 				fenetre.statusAlarme = 0;
 			}
 
+			updFenetreTitre(&fenetre);
 			clearFenetre(&fenetre);
 
 			pushBackBuffer(&spo2, m.spo2);

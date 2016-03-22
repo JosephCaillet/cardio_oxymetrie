@@ -13,6 +13,11 @@
 #include "dataBuffer.h"
 #include "button.h"
 
+#define FENETRE_TITRE " Oxymètre de pouls \0"
+#define FENETRE_TITRE_LONGUEUR 20
+#define FENETRE_TITRE_ALARME_SYMBOLE '*'
+#define FENETRE_TITRE_ALARME_SYMBOLE_LONGUEUR 50
+
 #define FENETRE_HAUTEUR 900
 #define FENETRE_LARGEUR 1000
 
@@ -105,5 +110,6 @@ void deleteFenetre(Fenetre* fenetre);
 void clearFenetre(Fenetre* fenetre);
 void drawCourbe(Fenetre* fenetre, int numCourbe, DataBuffer* dataBuffer, int offsetOrigin);
 void drawValeurs(Fenetre* fenetre, SDL_Surface* label, int valeur, char* txt, SDL_Color couleur, int num);
+void updFenetreTitre(Fenetre* fenetre);
 
 #endif //IHM_FENETRE_H
