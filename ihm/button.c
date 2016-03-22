@@ -69,17 +69,20 @@ void updButtonValue(Button* btn, char sign)
 
 int updButtonState(Button* btn, SDL_Event* event)
 {
-	if(! (event->button.x < btn->pos.x + BUTTON_SUB_BUTTON_OFFSET ||
+	if(! (event->button.x < btn->pos.x ||
 			event->button.x > btn->pos.x + BUTTON_SUB_BUTTON_OFFSET + btn->txtSubButton->w ||
 			event->button.y < btn->pos.y ||
 			event->button.y > btn->pos.y + BUTTON_HAUTEUR ))
 	{
-		if(event->button.button == SDL_BUTTON_WHEELUP || event->button.x < btn->pos.x + BUTTON_SUB_BUTTON_OFFSET + btn->txtSubButton->w / 2)
+		if(event->button.button == SDL_BUTTON_WHEELUP ||
+			(event->button.x < btn->pos.x + BUTTON_SUB_BUTTON_OFFSET + btn->txtSubButton->w / 2 &&
+			event->button.x > btn->pos.x + BUTTON_SUB_BUTTON_OFFSET))
 		{
 			updButtonValue(btn, '+');
 			return 1;
 		}
-		else if(event->button.button == SDL_BUTTON_WHEELDOWN)
+		else if(event->button.button == SDL_BUTTON_WHEELDOWN ||
+			event->button.x > btn->pos.x + BUTTON_SUB_BUTTON_OFFSET + btn->txtSubButton->w / 2)
 		{
 			updButtonValue(btn, '-');
 			return 1;
