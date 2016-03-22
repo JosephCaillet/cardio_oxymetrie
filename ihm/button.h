@@ -54,7 +54,7 @@ typedef struct Button Button;
 
 void initButton(Button* btn, Fenetre* fenetre, char* lbl, int val, int min, int max, int pas, int x, int y);
 void deleteButton(Button* btn);
-void updButtonValue(Button* btn);
+void updButtonValue(Button* btn, char sign);
 int updButtonState(Button* btn, SDL_Event* event);
 void drawButton(Button* btn);
 

@@ -42,8 +42,25 @@ void deleteButton(Button* btn)
 	SDL_FreeSurface(btn->txtSubButton);
 }
 
-void updButtonValue(Button* btn)
+void updButtonValue(Button* btn, char sign)
 {
+	if(sign == '+')
+	{
+		btn->value += btn->pas;
+		if(btn->value > btn->max)
+		{
+			btn->value = btn->max;
+		}
+	}
+	else if(sign == '-')
+	{
+		btn->value -= btn->pas;
+		if(btn->value < btn->min)
+		{
+			btn->value = btn->min;
+		}
+	}
+
 	char str[4];
 	sprintf(str, "%d", btn->value);
 	SDL_FreeSurface(btn->txtValue);
@@ -57,26 +74,19 @@ int updButtonState(Button* btn, SDL_Event* event)
 			event->button.y < btn->pos.y ||
 			event->button.y > btn->pos.y + BUTTON_HAUTEUR ))
 	{
-		puts("\tupd");
-		if(event->button.x < btn->pos.x + BUTTON_SUB_BUTTON_OFFSET + btn->txtSubButton->w / 2)
+		if(event->button.button == SDL_BUTTON_WHEELUP || event->button.x < btn->pos.x + BUTTON_SUB_BUTTON_OFFSET + btn->txtSubButton->w / 2)
 		{
-			btn->value += btn->pas;
-			if(btn->value > btn->max)
-			{
-				btn->value = btn->max;
-			}
-			updButtonValue(btn);
+			updButtonValue(btn, '+');
+			return 1;
+		}
+		else if(event->button.button == SDL_BUTTON_WHEELDOWN)
+		{
+			updButtonValue(btn, '-');
 			return 1;
 		}
 		else
 		{
-			btn->value -= btn->pas;
-			if(btn->value < btn->min)
-			{
-				btn->value = btn->min;
-			}
-			updButtonValue(btn);
-			return 1;
+			return 0;
 		}
 	}
 	return 0;

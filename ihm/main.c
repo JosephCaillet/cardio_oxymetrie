@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
 				if(souriRelachee == 1)
 				{
 					souriRelachee = 0;
-					puts("clic!");
+					
 					if(updButtonState(&fenetre.alarmeBas, &event) == 0)
 					{
 						updButtonState(&fenetre.alarmeHaut, &event);
@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
 
 			if(m.bpm < fenetre.alarmeBas.value || m.bpm > fenetre.alarmeHaut.value)
 			{
-				//fenetre.statusAlarme = 1;
+				fenetre.statusAlarme = 1;
 			} 
 			else
 			{
@@ -83,10 +83,10 @@ int main(int argc, char *argv[])
 			drawCourbe(&fenetre, 3, &acr, 0);
 			drawCourbe(&fenetre, 4, &acir, 0);
 
-			drawValeurs(&fenetre, fenetre.txtSpo2, m.spo2, "%d %%", fenetre.colorSpo2, 1);
-			drawValeurs(&fenetre, fenetre.txtBpm, m.bpm, "%d", fenetre.colorBpm, 2);
-			drawValeurs(&fenetre, fenetre.txtAcr, m.acr, "%d", fenetre.colorAcr, 3);
-			drawValeurs(&fenetre, fenetre.txtAcir, m.acir, "%d", fenetre.colorAcir, 4);
+			drawValeurs(&fenetre, fenetre.txtSpo2, m.spo2, " %d %% ", fenetre.colorSpo2, 1);
+			drawValeurs(&fenetre, fenetre.txtBpm, m.bpm, " %d ", fenetre.colorBpm, 2);
+			drawValeurs(&fenetre, fenetre.txtAcr, m.acr, " %d ", fenetre.colorAcr, 3);
+			drawValeurs(&fenetre, fenetre.txtAcir, m.acir, " %d ", fenetre.colorAcir, 4);
 
 			drawButton(&(fenetre.alarmeBas));
 			drawButton(&(fenetre.alarmeHaut));

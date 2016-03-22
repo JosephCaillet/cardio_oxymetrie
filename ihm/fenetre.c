@@ -59,10 +59,10 @@ int initFenetre(Fenetre* fenetre)
 	fenetre->colorFondEcranAlarme.g = COULEUR_FOND_ECRAN_ALARME_V;
 	fenetre->colorFondEcranAlarme.b = COULEUR_FOND_ECRAN_ALARME_B;
 
-	fenetre->txtSpo2 = TTF_RenderText_Shaded(fenetre->font, "SPO2", fenetre->colorSpo2, fenetre->colorFondEcran);
-	fenetre->txtBpm = TTF_RenderText_Shaded(fenetre->font, "BPM", fenetre->colorBpm, fenetre->colorFondEcran);
-	fenetre->txtAcr = TTF_RenderText_Shaded(fenetre->font, "AC-R", fenetre->colorAcr, fenetre->colorFondEcran);
-	fenetre->txtAcir = TTF_RenderText_Shaded(fenetre->font, "AC-IR", fenetre->colorAcir, fenetre->colorFondEcran);
+	fenetre->txtSpo2 = TTF_RenderText_Shaded(fenetre->font, " SPO2 ", fenetre->colorSpo2, fenetre->colorFondEcran);
+	fenetre->txtBpm = TTF_RenderText_Shaded(fenetre->font, " BPM ", fenetre->colorBpm, fenetre->colorFondEcran);
+	fenetre->txtAcr = TTF_RenderText_Shaded(fenetre->font, " AC-R ", fenetre->colorAcr, fenetre->colorFondEcran);
+	fenetre->txtAcir = TTF_RenderText_Shaded(fenetre->font, " AC-IR ", fenetre->colorAcir, fenetre->colorFondEcran);
 
 	fenetre->pxSPO2 = SDL_CreateRGBSurface(SDL_HWSURFACE, POINT_LARGEUR, POINT_HAUTEUR, 32, 0, 0, 0, 0);
 	fenetre->pxBPM = SDL_CreateRGBSurface(SDL_HWSURFACE, POINT_LARGEUR, POINT_HAUTEUR, 32, 0, 0, 0, 0);
