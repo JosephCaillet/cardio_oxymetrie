@@ -71,12 +71,33 @@ void fir(DataBuffer* dataBuffer, float* acRFiltre, float* acIRFiltre){
 
 absorp firTest(char* str){
 	absorp absorb;
+	DataBuffer buffer;
+	float acRPB, acRPBPrec, acIRPB, acIRPBPrec;
+	char x, y;
+
+	initDataBuffer(&buffer);
 
 	FILE* pf = fopen(str, "r");
 	if(!pf){
 		printf("Le fichier n'a pu être lu.\n");
 		return absorb;
 	}
+
+	do{
+		fscanf(pf, "%f,%f,%f,%f,%c,%c", &absorb.acr, &absorb.dcr, &absorb.acir, &absorb.dcir, &x, &y);;
+
+		if(!feof(pf)){
+			push_front(&buffer, absorb);
+			acRPBPrec = acRPB;
+			acIRPBPrec = acIRPB;
+
+			fir(&buffer, &acRPB, &acIRPB);
+
+			absorb.acr = acRPB;
+			absorb.acir = acIRPB;
+		}
+	}while(!feof(pf));
+
 
 	return absorb;
 }
