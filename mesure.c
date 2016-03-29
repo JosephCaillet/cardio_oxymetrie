@@ -112,3 +112,28 @@ void affAcMesure(AcMesures ac)
 	printf("Min : %d\n", ac.min);
 	printf("Max : %d\n", ac.max);
 }
+
+oxy mesureTest(char* str){
+	oxy oxyDatas;
+	absorp absorb;
+	AcMesures acRm = {0,0,0, 0,0, SEUIL_BAS,0,SEUIL_HAUT,0, 0.0, "R"};
+	AcMesures acIRm = {0,0,0, 0,0, SEUIL_BAS,0,SEUIL_HAUT,0, 0.0, "IR"};
+	char x, y;
+
+	FILE* pf = fopen(str, "r");
+	if(!pf){
+		printf("Le fichier n'a pu être lu.\n");
+		return oxyDatas;
+	}
+
+	do{
+		fscanf(pf, "%f,%f,%f,%f,%c,%c", &absorb.acr, &absorb.dcr, &absorb.acir, &absorb.dcir, &x, &y);
+
+		if(!feof(pf)){
+			mesure(&oxyDatas, absorb, &acRm, &acIRm);
+		}
+	}while(!feof(pf));
+
+
+	return oxyDatas;
+}

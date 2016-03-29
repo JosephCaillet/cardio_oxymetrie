@@ -37,4 +37,6 @@ float convertRatioToSPO2(float ratio);
 
 void affAcMesure(AcMesures ac);
 
+oxy mesureTest(char*);
+
 #endif
