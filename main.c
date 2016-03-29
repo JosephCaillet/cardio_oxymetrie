@@ -14,7 +14,7 @@ int main(int argc, char* argv[])
 	absorp absorb;
 	DataBuffer buffer;
 	oxy oxyDatas;
-	int reussite, continuer, err, typeSrc;
+	int reussite, continuer, err, typeSrc, eof;
 	//int lastBpm = 0;
 	float acRPB, acRPBPrec, acRPH, acRPHPrec, acIRPB, acIRPBPrec, acIRPH, acIRPHPrec;
 	/*
@@ -60,7 +60,13 @@ int main(int argc, char* argv[])
 
 	while(continuer){
 
-		reussite = lecture(src, typeSrc, &absorb);
+		if(typeSrc == 1){
+			absorb = lecture(src, &eof);
+		}
+		else
+		{
+			//lecture USB
+		}
 
 		if(reussite == 0){
 			err = 0;

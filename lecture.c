@@ -1,23 +1,26 @@
+#include <ctype.h>
+
 #include "lecture.h"
 
-#define RETURN_IF_EOF_OR_READING_ERROR()    res = checkErrors(res, etat); \
+#define RETURN_IF_EOF_OR_READING_ERROR()    res = checkErrors(res, etat, pf); \
 											if(res == -1) \
 											{ \
-												return absorp; \
+												return absorb; \
 											} \
 											else if(res == 1) \
 											{ \
 												return lecture(pf, etat); \
-											} \
+											}
 
-int readSequence(FILE* pf, int* nb)
+int readSequence(FILE* pf, float* nb)
 {
 	char tab[LONG_ELM_TRAME];
 	int i;
+	char res;
 
-	for(i = 0; i < LONG_ELM_TRAME)
+	for(i = 0; i < LONG_ELM_TRAME; i++)
 	{
-		char res = fgetc(pf);
+		res = fgetc(pf);
 		if(res == EOF)
 		{
 			return -1;
@@ -35,10 +38,12 @@ int readSequence(FILE* pf, int* nb)
 
 int isSeparatorValid(FILE* pf, int mode)
 {
+	char c1;
+	char c2;
 	if(mode == 0)
 	{
-		char c = fgetc(pf);
-		if(c == EOF)
+		c1 = fgetc(pf);
+		if(c1 == EOF)
 		{
 			return -1;
 		}
@@ -50,8 +55,8 @@ int isSeparatorValid(FILE* pf, int mode)
 	}
 	else if(mode == 1)
 	{
-		char c1 = fgetc(pf);
-		char c2 = fgetc(pf);
+		c1 = fgetc(pf);
+		c2 = fgetc(pf);
 		if(c1 == EOF || c2 == EOF)
 		{
 			return -1;
@@ -70,14 +75,14 @@ int checkErrors(int res, int* eof, FILE* pf)
 {
 	if(res == -1)
 	{
-		*eof == EOF;
+		*eof = EOF;
 		return -1;
 	}
 	else if(res == 1)
 	{
 		if(waitForValidTrame(pf) == -1)
 		{
-			*etat = EOF;
+			*eof = EOF;
 			return -1;
 		}
 		return 1;
@@ -110,7 +115,7 @@ int waitForValidTrame(FILE* pf)
 	return 0;
 }
 
-absorp lecture(File* pf, int* etat)
+absorp lecture(FILE* pf, int* etat)
 {
 	absorp absorb;
 	int res;
@@ -133,7 +138,7 @@ absorp lecture(File* pf, int* etat)
 	res = readSequence(pf, &absorb.acir);
 	RETURN_IF_EOF_OR_READING_ERROR()
 	//,
-	res = isSeparatorValid(c1, NULL, 0);
+	res = isSeparatorValid(pf, 0);
 	RETURN_IF_EOF_OR_READING_ERROR()
 
 	//dcir
