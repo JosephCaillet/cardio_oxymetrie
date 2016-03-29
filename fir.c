@@ -66,3 +66,17 @@ void fir(DataBuffer* dataBuffer, float* acRFiltre, float* acIRFiltre){
 
 	return;
 }
+
+
+
+absorp firTest(char* str){
+	absorp absorb;
+
+	FILE* pf = fopen(str, "r");
+	if(!pf){
+		printf("Le fichier n'a pu être lu.\n");
+		return absorb;
+	}
+
+	return absorb;
+}
