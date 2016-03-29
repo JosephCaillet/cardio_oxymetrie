@@ -1,6 +1,6 @@
-#include "firPB.h"
+#include "fir.h"
 
-void firPB(DataBuffer* dataBuffer, float* acRFiltre, float* acIRFiltre){
+void fir(DataBuffer* dataBuffer, float* acRFiltre, float* acIRFiltre){
 	float hk[51] = {
 	1.4774946e-019,
 	1.6465231e-004,

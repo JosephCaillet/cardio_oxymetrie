@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "lecture.h"
-#include "firPB.h"
-#include "iirPH.h"
+#include "fir.h"
+#include "iir.h"
 #include "mesure.h"
 #include "lecture.h"
 #include "affichage.h"
@@ -69,13 +69,13 @@ int main(int argc, char* argv[])
 			acRPBPrec = acRPB;
 			acIRPBPrec = acIRPB;
 
-			firPB(&buffer, &acRPB, &acIRPB);
+			fir(&buffer, &acRPB, &acIRPB);
 
 			acRPHPrec = acRPH;
-			acRPH = iirPH(acRPB, acRPBPrec, acRPHPrec);
+			acRPH = iir(acRPB, acRPBPrec, acRPHPrec);
 
 			acIRPHPrec = acIRPH;
-			acIRPH = iirPH(acIRPB, acIRPBPrec, acIRPHPrec);
+			acIRPH = iir(acIRPB, acIRPBPrec, acIRPHPrec);
 
 			absorb.acr = acRPH;
 			absorb.acir = acIRPH;

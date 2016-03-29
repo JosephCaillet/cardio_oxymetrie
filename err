@@ -1,0 +1,11 @@
+iir.c: In function 'iirTest':
+iir.c:7:22: warning: unused parameter 'str' [-Wunused-parameter]
+ absorp iirTest(char* str){
+                      ^
+lecture.c: In function 'lectureUSB':
+lecture.c:29:22: warning: unused parameter 'src' [-Wunused-parameter]
+ int lectureUSB(FILE* src,  absorp* absorb)
+                      ^
+lecture.c:29:36: warning: unused parameter 'absorb' [-Wunused-parameter]
+ int lectureUSB(FILE* src,  absorp* absorb)
+                                    ^
