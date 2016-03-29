@@ -7,9 +7,9 @@ float iir(float ac, float acPrec, float acPHPrec){
 absorp iirTest(char* str){
 	absorp absorb;
 	float acRPH, acRPHPrec, acRPB, acRPBPrec, acIRPH, acIRPHPrec, acIRPB, acIRPBPrec;
-	int x, y;
+	char x, y;
 
-	File* pf = fopen(str, "r");
+	FILE* pf = fopen(str, "r");
 	if(!pf){
 		printf("Le fichier n'a pu être lu.\n");
 		return absorb;
@@ -21,7 +21,7 @@ absorp iirTest(char* str){
 	acIRPH = 0;
 
 	do{
-		fscanf(pf, "%d,%d,%d,%d,%c,%c", &absorb.acr, &absorb.dcr, &absorb.acir, &absorb.dcir, &x, &y);;
+		fscanf(pf, "%f,%f,%f,%f,%c,%c", &absorb.acr, &absorb.dcr, &absorb.acir, &absorb.dcir, &x, &y);;
 
 		acRPHPrec = acRPH;
 		acIRPHPrec = acIRPH;

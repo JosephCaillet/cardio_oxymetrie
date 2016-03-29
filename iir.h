@@ -1,6 +1,7 @@
 #ifndef IIR
 #define IIR
 
+#include <stdio.h>
 #include "define.h"
 
 #define ALPHA 0.992
