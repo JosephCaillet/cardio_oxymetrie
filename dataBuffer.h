@@ -1,33 +1,19 @@
 #ifndef DATABUFFER
 #define DATABUFFER
 
+#include "define.h"
+
 #define BUFFER_SIZE 51
-
-struct Oxy
-{
-	int spo2;
-	int pouls;
-};
-typedef struct Oxy Oxy;
-
-struct Absorp
-{
-	float acr;
-	float acir;
-	float dcr;
-	float dcir;
-};
-typedef struct Absorp Absorp;
 
 struct DataBuffer
 {
-	Absorp datas[BUFFER_SIZE];
+	absorp datas[BUFFER_SIZE];
 	int index;
 };
 typedef struct DataBuffer DataBuffer;
 
 void initDataBuffer(DataBuffer* buffer);
-void push_front(DataBuffer* buffer, Absorp data);
-Absorp at(DataBuffer* buffer, int index);
+void push_front(DataBuffer* buffer, absorp data);
+absorp at(DataBuffer* buffer, int index);
 
 #endif

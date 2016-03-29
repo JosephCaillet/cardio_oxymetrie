@@ -7,7 +7,7 @@
 #include <unistd.h>
 #include "affichage.h"
 
-void affichage(Oxy oxyDatas){
+void affichage(oxy oxyDatas){
 
 	FILE *verrou = NULL;
 	FILE *data = NULL;

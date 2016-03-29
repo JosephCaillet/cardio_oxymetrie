@@ -11,9 +11,9 @@
 
 int main(int argc, char* argv[])
 {
-	Absorp absorb;
+	absorp absorb;
 	DataBuffer buffer;
-	Oxy oxyDatas;
+	oxy oxyDatas;
 	int reussite, continuer, err, typeSrc;
 	//int lastBpm = 0;
 	float acRPB, acRPBPrec, acRPH, acRPHPrec, acIRPB, acIRPBPrec, acIRPH, acIRPHPrec;

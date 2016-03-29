@@ -3,6 +3,6 @@
 
 #include "dataBuffer.h"
 
-void affichage(Oxy oxyDatas);
+void affichage(oxy oxyDatas);
 
 #endif

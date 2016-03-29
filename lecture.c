@@ -1,6 +1,6 @@
 #include "lecture.h"
 
-int lecture(void* source, int typeSource, Absorp* absorb)
+int lecture(void* source, int typeSource, absorp* absorb)
 {
 	if(typeSource == 1)
 	{
@@ -12,7 +12,7 @@ int lecture(void* source, int typeSource, Absorp* absorb)
 	}
 }
 
-int lectureFichier(FILE* src,  Absorp* absorb)
+int lectureFichier(FILE* src,  absorp* absorb)
 {
 	int status = fscanf(src, "%f,%f,%f,%f", &absorb->acr, &absorb->dcr, &absorb->acir, &absorb->dcir);
 	
@@ -26,7 +26,7 @@ int lectureFichier(FILE* src,  Absorp* absorb)
 	return 2;
 }
 
-int lectureUSB(FILE* src,  Absorp* absorb)
+int lectureUSB(FILE* src,  absorp* absorb)
 {
 	return 0;
 }

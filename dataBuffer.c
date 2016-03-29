@@ -15,7 +15,7 @@ void initDataBuffer(DataBuffer* buffer)
 	buffer->index = 42;
 }
 
-void push_front(DataBuffer* buffer, Absorp absorp)
+void push_front(DataBuffer* buffer, absorp absorp)
 {
 	buffer->index--;
 	
@@ -27,7 +27,7 @@ void push_front(DataBuffer* buffer, Absorp absorp)
 	buffer->datas[buffer->index] = absorp;
 }
 
-Absorp at(DataBuffer* buffer, int index)
+absorp at(DataBuffer* buffer, int index)
 {
 	return buffer->datas[ (buffer->index + index) % BUFFER_SIZE];
 }

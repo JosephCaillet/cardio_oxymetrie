@@ -1,7 +1,7 @@
 #include "mesure.h"
 #include <stdio.h>
 
-void mesure(Oxy* oxy, Absorp absorp, AcMesures* acRm, AcMesures* acIRm)
+void mesure(oxy* oxy, absorp absorp, AcMesures* acRm, AcMesures* acIRm)
 {
 	int periodeAquise = 0;
 	//static int mesure = 0;
