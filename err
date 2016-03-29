@@ -1,11 +1,14 @@
-iir.c: In function 'iirTest':
-iir.c:7:22: warning: unused parameter 'str' [-Wunused-parameter]
- absorp iirTest(char* str){
-                      ^
+fir.c: In function 'firTest':
+fir.c:75:34: warning: variable 'acIRPBPrec' set but not used [-Wunused-but-set-variable]
+  float acRPB, acRPBPrec, acIRPB, acIRPBPrec;
+                                  ^
+fir.c:75:15: warning: variable 'acRPBPrec' set but not used [-Wunused-but-set-variable]
+  float acRPB, acRPBPrec, acIRPB, acIRPBPrec;
+               ^
 lecture.c: In function 'lectureUSB':
-lecture.c:29:22: warning: unused parameter 'src' [-Wunused-parameter]
+lecture.c:173:22: warning: unused parameter 'src' [-Wunused-parameter]
  int lectureUSB(FILE* src,  absorp* absorb)
                       ^
-lecture.c:29:36: warning: unused parameter 'absorb' [-Wunused-parameter]
+lecture.c:173:36: warning: unused parameter 'absorb' [-Wunused-parameter]
  int lectureUSB(FILE* src,  absorp* absorb)
                                     ^

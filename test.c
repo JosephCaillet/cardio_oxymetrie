@@ -12,9 +12,11 @@
 
 void testLecture();
 
-int main(int argc, char* argv[])
+int main()//int argc, char* argv[])
 {
 	puts("Running test for Lecture :");
+
+	testLecture();
 
 	return 0;
 }
@@ -30,10 +32,14 @@ void testLecture()
 
 	FILE* fic = fopen(FIC_TEST_NAME, "w");
 	fputs(input, fic);
-	rewind(fic);
+	fclose(fic);
+	fic = fopen(FIC_TEST_NAME, "r");
 
 	int eof = 36;
-	absorb a = lecture()
+	absorp a = {42, 42, 42, 42};
+	a = lecture(fic, &eof);
+	printf("Output given : %f %f %f %f\n", a.acr, a.dcr, a.acir, a.dcir);
+	printf("Output expct : %s", output);
 
 	fclose(fic);
 	remove(FIC_TEST_NAME);

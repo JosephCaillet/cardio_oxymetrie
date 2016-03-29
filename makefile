@@ -31,4 +31,4 @@ test.o: test.c fir.h iir.h lecture.h mesure.h affichage.h dataBuffer.h define.h
 	gcc -c test.c -o test.o $(FLAGS)
 
 clean:
-	rm -rf *.o carOxyAcq.exe
+	rm -rf *.o carOxyAcq.exe test.exe
