@@ -24,5 +24,11 @@ affichage.o: affichage.c fir.h iir.h lecture.h mesure.h affichage.h dataBuffer.h
 dataBuffer.o: dataBuffer.c fir.h iir.h lecture.h mesure.h affichage.h dataBuffer.h define.h
 	gcc -c dataBuffer.c -o dataBuffer.o $(FLAGS)
 
+test: test.o fir.o iir.o lecture.o mesure.o affichage.o dataBuffer.o
+	gcc test.o fir.o iir.o lecture.o mesure.o affichage.o dataBuffer.o -o test.exe
+
+test.o: test.c fir.h iir.h lecture.h mesure.h affichage.h dataBuffer.h define.h
+	gcc -c test.c -o test.o $(FLAGS)
+
 clean:
 	rm -rf *.o carOxyAcq.exe
