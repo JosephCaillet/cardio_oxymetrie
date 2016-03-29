@@ -84,7 +84,7 @@ absorp firTest(char* str){
 	}
 
 	do{
-		fscanf(pf, "%f,%f,%f,%f,%c,%c", &absorb.acr, &absorb.dcr, &absorb.acir, &absorb.dcir, &x, &y);;
+		fscanf(pf, "%f,%f,%f,%f,%c,%c", &absorb.acr, &absorb.dcr, &absorb.acir, &absorb.dcir, &x, &y);
 
 		if(!feof(pf)){
 			push_front(&buffer, absorb);
