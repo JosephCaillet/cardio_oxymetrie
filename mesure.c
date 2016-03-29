@@ -112,3 +112,9 @@ void affAcMesure(AcMesures ac)
 	printf("Min : %d\n", ac.min);
 	printf("Max : %d\n", ac.max);
 }
+
+oxy mesureTest(char* str){
+	oxy oxyDatas;
+
+	return oxyDatas;
+}
