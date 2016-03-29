@@ -118,11 +118,12 @@ oxy mesureTest(char* str){
 	absorp absorb;
 	AcMesures acRm = {0,0,0, 0,0, SEUIL_BAS,0,SEUIL_HAUT,0, 0.0, "R"};
 	AcMesures acIRm = {0,0,0, 0,0, SEUIL_BAS,0,SEUIL_HAUT,0, 0.0, "IR"};
+	char x, y;
 
 	FILE* pf = fopen(str, "r");
 	if(!pf){
 		printf("Le fichier n'a pu être lu.\n");
-		return absorb;
+		return oxyDatas;
 	}
 
 	do{
