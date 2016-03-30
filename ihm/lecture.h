@@ -20,5 +20,6 @@ struct Mesures
 typedef struct Mesures Mesures;
 
 void getMesures(Mesures* mesures);
+void getDataFromFile(char* dataFileName, char* verrouFileName, int* value1, int* value2);
 
 #endif //IHM_LECTURE_H
