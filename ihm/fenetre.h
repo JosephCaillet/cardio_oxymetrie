@@ -18,7 +18,7 @@
 #define FENETRE_TITRE_ALARME_SYMBOLE '*'
 #define FENETRE_TITRE_ALARME_SYMBOLE_LONGUEUR 50
 
-#define FENETRE_HAUTEUR 900
+#define FENETRE_HAUTEUR 880
 #define FENETRE_LARGEUR 1000
 
 #define COURBE_LONGUEUR TAILLE_BUFFER
@@ -84,6 +84,7 @@ struct Fenetre
 
 	SDL_Surface* bgCourbe;
 	SDL_Surface* zeroCourbe;
+	SDL_Surface* alarmeBackground;
 
 	TTF_Font* font;
 	SDL_Surface* txtSpo2;
