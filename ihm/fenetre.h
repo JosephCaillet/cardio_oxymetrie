@@ -65,10 +65,10 @@
 #define COULEUR_FOND_COURBE 44, 62, 80
 #define COULEUR_ZERO_COURBE 200,200,200
 
-#define COEFF_SPO2 0.5
-#define COEFF_BPM 0.1
-#define COEFF_ACR 0.05
-#define COEFF_ACIR 0.2
+#define COEFF_SPO2 1.5
+#define COEFF_BPM 0.5
+#define COEFF_ACR 0.0366
+#define COEFF_ACIR COEFF_ACR
 
 struct Button;
 typedef struct Button Button;

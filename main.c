@@ -85,8 +85,8 @@ int main(int argc, char* argv[])
 			//oxyDatas.pouls /= 2;
 
 			printf("%d\t%d\n", oxyDatas.pouls, oxyDatas.spo2);
-			//affichage(oxyDatas);
-
+			affichage(oxyDatas);
+			affichage2(absorb.acr, absorb.acir);
 			//lastBpm = oxyDatas.pouls;
 		}
 
