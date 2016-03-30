@@ -72,7 +72,7 @@ void fir(DataBuffer* dataBuffer, float* acRFiltre, float* acIRFiltre){
 absorp firTest(char* str){
 	absorp absorb;
 	DataBuffer buffer;
-	float acRPB, acRPBPrec, acIRPB, acIRPBPrec;
+	float acRPB, acIRPB;
 	char x, y;
 
 	initDataBuffer(&buffer);
@@ -88,8 +88,6 @@ absorp firTest(char* str){
 
 		if(!feof(pf)){
 			push_front(&buffer, absorb);
-			acRPBPrec = acRPB;
-			acIRPBPrec = acIRPB;
 
 			fir(&buffer, &acRPB, &acIRPB);
 
