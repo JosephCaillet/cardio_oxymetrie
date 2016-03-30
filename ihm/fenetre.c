@@ -70,13 +70,15 @@ int initFenetre(Fenetre* fenetre)
 	fenetre->pxACIR = SDL_CreateRGBSurface(SDL_HWSURFACE, POINT_LARGEUR, POINT_HAUTEUR, 32, 0, 0, 0, 0);
 	fenetre->bgCourbe = SDL_CreateRGBSurface(SDL_HWSURFACE, COURBE_LONGUEUR + POINT_LARGEUR - 1, COURBE_HAUTEUR, 32, 0, 0, 0, 0);
 	fenetre->zeroCourbe = SDL_CreateRGBSurface(SDL_HWSURFACE, COURBE_LONGUEUR + POINT_LARGEUR - 1, POINT_HAUTEUR, 32, 0, 0, 0, 0);
-
+	fenetre->alarmeBackground = SDL_CreateRGBSurface(SDL_HWSURFACE, FENETRE_LARGEUR, FENETRE_HAUTEUR / 5, 32, 0, 0, 0, 0);
+	
 	SDL_FillRect(fenetre->pxSPO2, NULL, SDL_MapRGB(fenetre->screen->format, COULEUR_SPO2));
 	SDL_FillRect(fenetre->pxBPM, NULL, SDL_MapRGB(fenetre->screen->format, COULEUR_BPM));
 	SDL_FillRect(fenetre->pxACR, NULL, SDL_MapRGB(fenetre->screen->format, COULEUR_ACR));
 	SDL_FillRect(fenetre->pxACIR, NULL, SDL_MapRGB(fenetre->screen->format, COULEUR_ACIR));
 	SDL_FillRect(fenetre->bgCourbe, NULL, SDL_MapRGB(fenetre->screen->format, COULEUR_FOND_COURBE));
 	SDL_FillRect(fenetre->zeroCourbe, NULL, SDL_MapRGB(fenetre->screen->format, COULEUR_ZERO_COURBE));
+	SDL_FillRect(fenetre->alarmeBackground, NULL, SDL_MapRGB(fenetre->screen->format, COULEUR_FOND_ECRAN_ALARME));
 
 	initButton(&fenetre->alarmeBas, fenetre, "Min :", 40, 10, 80, 2, (FENETRE_LARGEUR / 4) - BUTTON_LARGEUR / 2, 4 * (COURBE_HAUTEUR + COURBE_OFFSET_Y));
 	initButton(&fenetre->alarmeHaut, fenetre, "Max :", 100, 90, 200, 5, (FENETRE_LARGEUR / 4 * 3) - BUTTON_LARGEUR / 2,  4 * (COURBE_HAUTEUR + COURBE_OFFSET_Y));
@@ -95,6 +97,7 @@ void deleteFenetre(Fenetre* fenetre)
 	SDL_FreeSurface(fenetre->pxACR);
 	SDL_FreeSurface(fenetre->pxACIR);
 	SDL_FreeSurface(fenetre->bgCourbe);
+	SDL_FreeSurface(fenetre->alarmeBackground);
 	SDL_FreeSurface(fenetre->zeroCourbe);
 	SDL_FreeSurface(fenetre->txtSpo2);
 	SDL_FreeSurface(fenetre->txtBpm);
@@ -105,16 +108,17 @@ void deleteFenetre(Fenetre* fenetre)
 
 void clearFenetre(Fenetre* fenetre)
 {
+	SDL_Rect pos;
+
+	SDL_FillRect(fenetre->screen, NULL, SDL_MapRGB(fenetre->screen->format, COULEUR_FOND_ECRAN));
+
 	if(fenetre->statusAlarme == 1)
 	{
-		SDL_FillRect(fenetre->screen, NULL, SDL_MapRGB(fenetre->screen->format, COULEUR_FOND_ECRAN_ALARME));
-	}
-	else
-	{
-		SDL_FillRect(fenetre->screen, NULL, SDL_MapRGB(fenetre->screen->format, COULEUR_FOND_ECRAN));
+		pos.x = 0;
+		pos.y = COURBE_HAUTEUR * 4 + COURBE_OFFSET_Y * 3.75;
+		SDL_BlitSurface(fenetre->alarmeBackground, NULL, fenetre->screen, &pos);
 	}
 
-	SDL_Rect pos;
 	pos.x = COURBE_OFFSET_X;
 	pos.y = COURBE_OFFSET_Y / 2;
 
