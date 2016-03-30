@@ -11,12 +11,12 @@
 #define FIC_TEST_NAME "test_fic_input"
 
 void testLecture();
+void testIir();
 
 int main()//int argc, char* argv[])
 {
-	puts("Running test for Lecture :");
-
-	testLecture();
+	//testLecture();
+	testIir();
 
 	return 0;
 }
@@ -43,4 +43,18 @@ void testLecture()
 
 	fclose(fic);
 	remove(FIC_TEST_NAME);
+}
+
+void testIir()
+{
+	puts(" -- Running test for iir : --");
+
+	char* input = "rec/record1_fir.dat";
+	char* output = "-716, 1830, -688, 1830\n";
+
+	absorp a = {42, 42, 42, 42};
+	a = iirTest(input);
+
+	printf("Output given : %f %f %f %f\n", a.acr, a.dcr, a.acir, a.dcir);
+	printf("Output expct : %s", output);
 }
