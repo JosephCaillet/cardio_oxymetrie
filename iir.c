@@ -9,6 +9,8 @@ absorp iirTest(char* str){
 	float acRPH, acRPHPrec, acRPB, acRPBPrec, acIRPH, acIRPHPrec, acIRPB, acIRPBPrec;
 	char x, y;
 
+	FILE* ficOTest = fopen("testIirOutput", "w+");
+
 	FILE* pf = fopen(str, "r");
 	if(!pf){
 		printf("Le fichier n'a pu être lu.\n");
