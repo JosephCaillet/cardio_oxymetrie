@@ -19,8 +19,8 @@ int main()//int argc, char* argv[])
 {
 	//testLecture();
 	//testIir();
-	//testMesure();
-	testSP02();
+	testMesure();
+//	testSP02();
 
 	return 0;
 }

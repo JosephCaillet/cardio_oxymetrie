@@ -89,8 +89,10 @@ int majBpm(AcMesures* ac)
 		//ac->max = SEUIL_HAUT;
 
 		//ac->bpm = (float)30000 / (float)ac->nbPoints;
-		ac->bpm = (((float)30000 / (float)ac->nbPoints) + lastbpm) / 2.0  ;
-		lastbpm = ac->bpm;
+//		ac->bpm = (((float)30000 / (float)ac->nbPoints) + lastbpm) / 2.0  ;
+//		lastbpm = ac->bpm;
+		ac->bpm = (float)30000 / (((float)ac->nbPoints + (float)lastbpm)/2) / 2.0  ;
+		lastbpm = ac->nbPoints;
 		ac->nbPoints = 1;
 		
 		return 1;
