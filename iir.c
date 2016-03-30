@@ -36,6 +36,7 @@ absorp iirTest(char* str){
 
 			absorb.acr = acRPH;
 			absorb.acir = acIRPH;
+			fprintf(ficOTest, "%f,%f,%f,%f\n\r", absorb.acr, absorb.dcr, absorb.acir, absorb.dcir);
 		}
 	}while(!feof(pf));
 	
