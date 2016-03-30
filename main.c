@@ -87,6 +87,9 @@ int main(int argc, char* argv[])
 			printf("%d\t%d\n", oxyDatas.pouls, oxyDatas.spo2);
 			affichage(oxyDatas);
 			affichage2(absorb.acr, absorb.acir);
+			if(typeSrc == 1){
+				usleep(2000);
+			}
 			//lastBpm = oxyDatas.pouls;
 		}
 

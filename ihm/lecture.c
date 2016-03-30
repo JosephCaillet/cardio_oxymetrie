@@ -27,10 +27,10 @@ void getMesures(Mesures* mesures)
 	mesures->acr = spo2;
 	mesures->acir = spo2;
 return;*/
-	mesures->spo2 = 0;
+	/*mesures->spo2 = 0;
 	mesures->bpm = 0;
 	mesures->acr = 0;
-	mesures->acir = 0;
+	mesures->acir = 0;*/
 
 	FILE *verrou = NULL;
 	FILE *data = NULL;
