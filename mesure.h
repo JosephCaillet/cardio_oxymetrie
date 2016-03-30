@@ -3,8 +3,8 @@
 
 #include "dataBuffer.h"
 
-#define SEUIL_HAUT 500
-#define SEUIL_BAS -500
+#define SEUIL_HAUT 100
+#define SEUIL_BAS -100
 
 struct AcMesures
 {

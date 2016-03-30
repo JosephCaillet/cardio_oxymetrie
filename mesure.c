@@ -11,8 +11,8 @@ void mesure(oxy* oxy, absorp absorp, AcMesures* acRm, AcMesures* acIRm)
 	majMaxMinDepasseSeuil(acIRm, absorp.acir);
 
 	//upd passage par 0
-	majPassageZero(acRm, absorp.acr);
-	majPassageZero(acIRm, absorp.acir);
+//	majPassageZero(acRm, absorp.acr);
+//	majPassageZero(acIRm, absorp.acir);
 
 	//updBpm
 	periodeAquise += majBpm(acRm, absorp.acr);
@@ -24,7 +24,7 @@ void mesure(oxy* oxy, absorp absorp, AcMesures* acRm, AcMesures* acIRm)
 //		puts("Avant spo2 :");
 //		printf("acRmax : %f, acRmin : %f\nacIRmax : %f, acIRmin : %f\ndcR : %f, dcIR : %f\n", acRm->maxValid, acRm->minValid, acIRm->maxValid, acIRm->minValid, absorp.dcr, absorp.dcir);
 		oxy->spo2 = calculSPo2(acRm->maxValid, acRm->minValid, acIRm->maxValid, acIRm->minValid, absorp.dcr, absorp.dcir);
-		oxy->pouls = (acRm->bpm + acIRm->bpm) / 2.0f;
+		oxy->pouls = (acRm->bpm + acIRm->bpm) / 2.0;
 		//printf("Rbmp: %f - IRbmp: %f\n", acRm->bpm, acIRm->bpm);
 		//printf("ACR: %f - ACIR: %f\n", absorp.acr, absorp.acir);
 		//printf("-- Absorb --\nacr : %f\ndcr : %f\nacir : %f\ndcir : %f\n", absorp.acr, absorp.dcr, absorp.acir, absorp.dcir);
@@ -40,43 +40,18 @@ void majMaxMinDepasseSeuil(AcMesures* ac, int acNew)
 	{
 		ac->max = acNew;
 		ac->seuilHautPasse = 1;
-		//ac->min = SEUIL_BAS;
 	}
-	else if(acNew < ac->min)//On veux faire les vérif sur un seuil bas précédé d'un seuil haut.
+	else if(acNew < ac->min)
 	{
 		ac->min = acNew;
 		ac->seuilBasPasse = 1;
-		//ac->max = SEUIL_HAUT;
 	}
-}
-
-void majPassageZero(AcMesures* ac, int acNew)
-{
-	/*if(ac->lastValue * acNew < 0)
-	{
-		ac->passagePar0++;
-		printf("Passage par zéro n° %d pour %s - old : %d new : %d\n", ac->passagePar0, ac->s, ac->lastValue, acNew);
-	}*/
-
-	if(ac->lastValue > 0 && acNew < 0)
-	{
-		ac->maxValid = ac->max;
-		ac->max = SEUIL_HAUT;
-	}
-	else if(ac->lastValue < 0 && acNew > 0)
-	{
-		ac->minValid = ac->min;
-		ac->min = SEUIL_BAS;
-	}
-
-	ac->lastValue = acNew;
 }
 
 int majBpm(AcMesures* ac, float ech_ac)
 {
 	static float lastbpm = 425;
-	//if(ac->seuilBasPasse == 1 && ac->seuilHautPasse == 1 && ac->passagePar0 > 2)//Si on est passé par le seuil bas, implique passage seuil haut.
-	if(ech_ac < SEUIL_BAS && ac->seuilHautPasse == 1)//Si on est passé par le seuil bas, implique passage seuil haut.
+	if(ech_ac < SEUIL_BAS && ac->seuilHautPasse == 1)
 	{
 //		printf("Une période à été aquise sur : %s\n", ac->s);
 		//affAcMesure(*ac);
@@ -85,14 +60,13 @@ int majBpm(AcMesures* ac, float ech_ac)
 		ac->seuilBasPasse = 0;
 		//ac->passagePar0 = 1;
 
-		//ac->min = SEUIL_BAS;
-		//ac->max = SEUIL_HAUT;
+		ac->maxValid = ac->max;
+		ac->max = SEUIL_HAUT;
+		ac->minValid = ac->min;
+		ac->min = SEUIL_BAS;
 
-		//ac->bpm = (float)30000 / (float)ac->nbPoints;
-//		ac->bpm = (((float)30000 / (float)ac->nbPoints) + lastbpm) / 2.0  ;
-//		lastbpm = ac->bpm;
-//		ac->bpm = (float)30000 / (((float)ac->nbPoints + (float)lastbpm)/2)  ;
-		ac->bpm = (float)30000 / (float)ac->nbPoints;
+		ac->bpm = (float)30000 / (((float)ac->nbPoints + (float)lastbpm)/2)  ;
+//		ac->bpm = (float)30000 / (float)ac->nbPoints;
 		printf("cpt : %d\tcpt_old : %1f\tbpm : %f\tbpm_old : %f\tbpm_moy : %f\n", ac->nbPoints, lastbpm, (float)30000/(float)ac->nbPoints, (float)30000/(float)lastbpm, ac->bpm);
 		lastbpm = ac->nbPoints;
 		ac->nbPoints = 1;
