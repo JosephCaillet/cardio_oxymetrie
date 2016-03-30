@@ -16,7 +16,7 @@ void testIir();
 int main()//int argc, char* argv[])
 {
 	//testLecture();
-	testIir();
+	//testIir();
 
 	return 0;
 }

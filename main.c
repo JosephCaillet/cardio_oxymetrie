@@ -14,7 +14,7 @@ int main(int argc, char* argv[])
 	absorp absorb;
 	DataBuffer buffer;
 	oxy oxyDatas;
-	int reussite, continuer, err, typeSrc, eof;
+	int typeSrc, eof;
 	//int lastBpm = 0;
 	float acRPB, acRPBPrec, acRPH, acRPHPrec, acIRPB, acIRPBPrec, acIRPH, acIRPHPrec;
 	/*
@@ -34,9 +34,6 @@ int main(int argc, char* argv[])
 	AcMesures acIRm = {0,0,0, 0,0, SEUIL_BAS,0,SEUIL_HAUT,0, 0.0, "IR"};
 
 	initDataBuffer(&buffer);
-	reussite = 0;
-	continuer = 1;
-	err = 0;
 	typeSrc = 0;
 
 	acRPB = 0;
@@ -58,7 +55,7 @@ int main(int argc, char* argv[])
 		exit(0);
 	}
 
-	while(continuer){
+	while(!eof){
 
 		if(typeSrc == 1){
 			absorb = lecture(src, &eof);
@@ -68,8 +65,7 @@ int main(int argc, char* argv[])
 			//lecture USB
 		}
 
-		if(reussite == 0){
-			err = 0;
+		if(!eof){
 
 			push_front(&buffer, absorb);
 			acRPBPrec = acRPB;
@@ -91,18 +87,9 @@ int main(int argc, char* argv[])
 			//oxyDatas.pouls /= 2;
 
 			printf("%d\t%d\n", oxyDatas.pouls, oxyDatas.spo2);
-			affichage(oxyDatas);
+			//affichage(oxyDatas);
 
 			//lastBpm = oxyDatas.pouls;
-		}else if(reussite == 1){
-			err++;
-
-			if(err >= 10){
-				continuer = 0;
-				printf("Plus de 10 erreurs de lecture consécutives.\n");
-			}
-		}else{
-			continuer = 0;
 		}
 
 	}

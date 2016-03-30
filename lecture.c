@@ -17,15 +17,15 @@ int readSequence(FILE* pf, float* nb)
 	char tab[LONG_ELM_TRAME];
 	int i;
 	char res;
-	static int j = 0;
-	j++;
+	//static int j = 0;
+	//j++;
 	for(i = 0; i < LONG_ELM_TRAME; i++)
 	{
 		res = fgetc(pf);
 		if(res == EOF)
 		{
 			//puts("eof");
-			printf("eof a exec nb : %d", j);
+			//printf("eof a exec nb : %d", j);
 			return -1;
 		}
 		else if(!isdigit(res))
@@ -38,9 +38,9 @@ int readSequence(FILE* pf, float* nb)
 
 	//*nb = (tab[0] - 48) * 1000 + (tab[1] - 48) * 100 + (tab[2] - 48) * 10 + (tab[3] - 48);
 	*nb = (tab[0] ) * 1000 + (tab[1] ) * 100 + (tab[2] ) * 10 + (tab[3] );
-	printf("Read digits : %c%c%c%c\n", tab[0], tab[1], tab[2], tab[3]);
-	printf("Read digits : %d%d%d%d\n", tab[0], tab[1], tab[2], tab[3]);
-	printf("%f\n", *nb);
+	//printf("Read digits : %c%c%c%c\n", tab[0], tab[1], tab[2], tab[3]);
+	//printf("Read digits : %d%d%d%d\n", tab[0], tab[1], tab[2], tab[3]);
+	//printf("%f\n", *nb);
 	return 0;
 }
 
