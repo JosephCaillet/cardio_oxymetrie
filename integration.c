@@ -47,7 +47,7 @@ void integrationTest(char* fileName){
 	}
 	typeSrc = 1;
 
-	while(!eof){
+	while(eof != EOF){
 
 		if(typeSrc == 1){
 			absorb = lecture(src, &eof);
@@ -57,7 +57,7 @@ void integrationTest(char* fileName){
 			//lecture USB
 		}
 
-		if(!eof){
+		if(eof != EOF){
 			push_front(&buffer, absorb);
 			acRPBPrec = acRPB;
 			acIRPBPrec = acIRPB;
