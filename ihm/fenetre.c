@@ -85,6 +85,9 @@ int initFenetre(Fenetre* fenetre)
 	initButton(&fenetre->alarmeBas, fenetre, "Min :", 40, 10, 80, 2, (FENETRE_LARGEUR / 4) - BUTTON_LARGEUR / 2, 4 * (COURBE_HAUTEUR + COURBE_OFFSET_Y));
 	initButton(&fenetre->alarmeHaut, fenetre, "Max :", 100, 90, 200, 5, (FENETRE_LARGEUR / 4 * 3) - BUTTON_LARGEUR / 2,  4 * (COURBE_HAUTEUR + COURBE_OFFSET_Y));
 
+	fenetre->statusAlarme = 0;
+	fenetre->easterStatus = 0;
+
 	SDL_Surface* icone = SDL_LoadBMP("img/heart.bmp");
 	if(icone != NULL)
 	{
@@ -94,7 +97,17 @@ int initFenetre(Fenetre* fenetre)
 	}
 	else
 	{
-		fprintf(stderr, "Icone img/heart.bmp non trouvée.\n");
+		fprintf(stderr, "Icone img/heart.bmp non trouvée :(\n");
+	}
+
+	fenetre->easterImage = SDL_LoadBMP("img/beegees.bmp");
+	if(fenetre->easterImage == NULL)
+	{
+		fprintf(stderr, "Easterg egg img/beegees.jpg non trouvée :(\n");
+	}
+	else
+	{
+		SDL_SetAlpha(fenetre->easterImage, SDL_SRCALPHA, EASTER_ALPHA);
 	}
 
 	return 0;
@@ -224,4 +237,30 @@ void updFenetreTitre(Fenetre* fenetre)
 		}
 	}
 	SDL_WM_SetCaption(titre, NULL);
+}
+
+void doSomeMagic(Fenetre* fenetre)
+{
+	if(fenetre->easterStatus == 1 && fenetre->easterImage != NULL)
+	{
+		SDL_Rect pos;
+		pos.x = 0;
+		pos.y = 0;
+		SDL_BlitSurface(fenetre->easterImage, NULL, fenetre->screen, &pos);
+	}
+}
+
+void updEasterState(Fenetre* fenetre, SDL_Event* event, int op)
+{
+	if(event->key.keysym.sym == SDLK_SPACE)
+	{
+		if(op == 1)
+		{
+			fenetre->easterStatus = 1;
+		}
+		else if(op == 0)
+		{
+			fenetre->easterStatus = 0;
+		}
+	}
 }

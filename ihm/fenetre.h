@@ -70,6 +70,8 @@
 #define COEFF_ACR 0.0366
 #define COEFF_ACIR COEFF_ACR
 
+#define EASTER_ALPHA 90
+
 struct Button;
 typedef struct Button Button;
 
@@ -85,6 +87,8 @@ struct Fenetre
 	SDL_Surface* bgCourbe;
 	SDL_Surface* zeroCourbe;
 	SDL_Surface* alarmeBackground;
+
+	SDL_Surface* easterImage;
 
 	TTF_Font* font;
 	SDL_Surface* txtSpo2;
@@ -103,6 +107,7 @@ struct Fenetre
 	Button alarmeHaut;
 
 	int statusAlarme;
+	int easterStatus;
 };
 typedef struct Fenetre Fenetre;
 
@@ -112,5 +117,7 @@ void clearFenetre(Fenetre* fenetre);
 void drawCourbe(Fenetre* fenetre, int numCourbe, DataBuffer* dataBuffer, int offsetOrigin);
 void drawValeurs(Fenetre* fenetre, SDL_Surface* label, int valeur, char* txt, SDL_Color couleur, int num);
 void updFenetreTitre(Fenetre* fenetre);
+void doSomeMagic(Fenetre* fenetre);
+void updEasterState(Fenetre* fenetre, SDL_Event* event, int op);
 
 #endif //IHM_FENETRE_H

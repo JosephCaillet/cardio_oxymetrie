@@ -55,6 +55,13 @@ int main(int argc, char *argv[])
 			case SDL_MOUSEBUTTONUP:
 				souriRelachee = 1;
 				break;
+			case SDL_KEYDOWN:
+				updEasterState(&fenetre, &event, 1);
+				break;
+			case SDL_KEYUP:
+				updEasterState(&fenetre, &event, 0);
+				break;
+
 		}
 		
 		if(tempsActuel - tempsPrecedent > TEMPS_ACQUISITION)
@@ -92,6 +99,7 @@ int main(int argc, char *argv[])
 			drawButton(&(fenetre.alarmeBas));
 			drawButton(&(fenetre.alarmeHaut));
 
+			doSomeMagic(&fenetre);
 			SDL_Flip(fenetre.screen);
 
 			tempsPrecedent = tempsActuel;
