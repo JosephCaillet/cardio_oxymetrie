@@ -11,8 +11,8 @@ void mesure(oxy* oxy, absorp absorp, AcMesures* acRm, AcMesures* acIRm)
 	majMaxMinDepasseSeuil(acIRm, absorp.acir);
 
 	//upd passage par 0
-	//majPassageZero(&acRm, absorp.acr);
-	//majPassageZero(&acIRm, absorp.acir);
+	majPassageZero(acRm, absorp.acr);
+	majPassageZero(acIRm, absorp.acir);
 
 	//updBpm
 	periodeAquise += majBpm(acRm);
@@ -21,7 +21,9 @@ void mesure(oxy* oxy, absorp absorp, AcMesures* acRm, AcMesures* acIRm)
 	//updSPo2	
 	if(periodeAquise > 0)
 	{
-		oxy->spo2 = calculSPo2(acRm->max, acRm->min, acIRm->max, acIRm->min, absorp.dcr, absorp.dcir);
+		puts("Avant spo2 :");
+		printf("acRmax : %f, acRmin : %f\nacIRmax : %f, acIRmin : %f\ndcR : %f, dcIR : %f\n", acRm->maxValid, acRm->minValid, acIRm->maxValid, acIRm->minValid, absorp.dcr, absorp.dcir);
+		oxy->spo2 = calculSPo2(acRm->maxValid, acRm->minValid, acIRm->maxValid, acIRm->minValid, absorp.dcr, absorp.dcir);
 		oxy->pouls = (acRm->bpm + acIRm->bpm) / 2.0f;
 		//printf("Rbmp: %f - IRbmp: %f\n", acRm->bpm, acIRm->bpm);
 		//printf("ACR: %f - ACIR: %f\n", absorp.acr, absorp.acir);
@@ -38,27 +40,43 @@ void majMaxMinDepasseSeuil(AcMesures* ac, int acNew)
 	{
 		ac->max = acNew;
 		ac->seuilHautPasse = 1;
+		//ac->min = SEUIL_BAS;
 	}
-	else if(acNew < ac->min && ac->seuilHautPasse == 1)//On veux faire les vérif sur un seuil bas précédé d'un seuil haut.
+	else if(acNew < ac->min)//On veux faire les vérif sur un seuil bas précédé d'un seuil haut.
 	{
 		ac->min = acNew;
 		ac->seuilBasPasse = 1;
+		//ac->max = SEUIL_HAUT;
 	}
 }
 
-/*void majPassageZero(AcMesures* ac, int acNew)
+void majPassageZero(AcMesures* ac, int acNew)
 {
-	if(ac->lastValue * acNew < 0)
+	/*if(ac->lastValue * acNew < 0)
 	{
 		ac->passagePar0++;
 		printf("Passage par zéro n° %d pour %s - old : %d new : %d\n", ac->passagePar0, ac->s, ac->lastValue, acNew);
+	}*/
+
+	if(ac->lastValue > 0 && acNew < 0)
+	{
+		ac->maxValid = ac->max;
+		ac->max = SEUIL_HAUT;
 	}
+	else if(ac->lastValue < 0 && acNew > 0)
+	{
+		ac->minValid = ac->min;
+		ac->min = SEUIL_BAS;
+	}
+
 	ac->lastValue = acNew;
-}*/
+}
 
 int majBpm(AcMesures* ac)
 {
-	if(ac->seuilBasPasse == 1)// && ac->seuilHautPasse == 1 && ac->passagePar0 > 2)//Si on est passé par le seuil bas, implique passage seuil haut.
+	static float lastbpm = 0;
+	//if(ac->seuilBasPasse == 1 && ac->seuilHautPasse == 1 && ac->passagePar0 > 2)//Si on est passé par le seuil bas, implique passage seuil haut.
+	if(ac->seuilBasPasse == 1 && ac->seuilHautPasse == 1)//Si on est passé par le seuil bas, implique passage seuil haut.
 	{
 		printf("Une période à été aquise sur : %s\n", ac->s);
 		//affAcMesure(*ac);
@@ -67,10 +85,12 @@ int majBpm(AcMesures* ac)
 		ac->seuilBasPasse = 0;
 		//ac->passagePar0 = 1;
 
-		ac->min = SEUIL_BAS;
-		ac->max = SEUIL_HAUT;
+		//ac->min = SEUIL_BAS;
+		//ac->max = SEUIL_HAUT;
 
-		ac->bpm = (float)30000 / (float)ac->nbPoints;
+		//ac->bpm = (float)30000 / (float)ac->nbPoints;
+		ac->bpm = (((float)30000 / (float)ac->nbPoints) + lastbpm) / 2.0  ;
+		lastbpm = ac->bpm;
 		ac->nbPoints = 1;
 		
 		return 1;
@@ -81,13 +101,19 @@ int majBpm(AcMesures* ac)
 	return 0;
 }
 
-float calculSPo2(float acRmax, float acRmin, float acIRmax, float acIRmin, int dcR, int dcIR)
+float calculSPo2(float acRmax, float acRmin, float acIRmax, float acIRmin, float dcR, float dcIR)
 {
-	float ptpACr = (float)acRmax - (float)acRmin;
-	float rapport1 = ptpACr / (float)dcR;
+	//puts("Ds spo2 :");
+	//printf("acRmax : %f, acRmin : %f\nacIRmax : %f, acIRmin : %f\ndcR : %f, dcIR : %f\n", acRmax, acRmin, acIRmax, acIRmin, dcR, dcIR);
+	float ptpACr = acRmax - acRmin;
+	float rapport1 = ptpACr / dcR;
+	printf("le rapport1 vaut : %f\n", rapport1);
 
-	float ptpACir = (float)acIRmax - (float)acIRmin;
-	float rapport2 = ptpACir / (float)dcIR;
+	float ptpACir = acIRmax - acIRmin;
+	float rapport2 = ptpACir / dcIR;
+	printf("le rapport2 vaut : %f\n", rapport2);
+
+	printf("le ratio vaut : %f\n", rapport1 / rapport2);
 	return  convertRatioToSPO2( rapport1 / rapport2 );
 }
 
@@ -109,8 +135,8 @@ void affAcMesure(AcMesures ac)
 	printf("LastValue : %d\n", ac.lastValue);
 	printf("NbPoints: %d\n", ac.nbPoints);
 
-	printf("Min : %d\n", ac.min);
-	printf("Max : %d\n", ac.max);
+	printf("Min : %f\n", ac.min);
+	printf("Max : %f\n", ac.max);
 }
 
 oxy mesureTest(char* str){

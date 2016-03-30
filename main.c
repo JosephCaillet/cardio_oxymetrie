@@ -28,7 +28,7 @@ int main(int argc, char* argv[])
 	acIRPH - acIR filtré passe haut
 	acIRPHPrec - acIR passe haut précedent
 	*/
-	void* src;
+	FILE* src = NULL;
 
 	AcMesures acRm = {0,0,0, 0,0, SEUIL_BAS,0,SEUIL_HAUT,0, 0.0, "R"};
 	AcMesures acIRm = {0,0,0, 0,0, SEUIL_BAS,0,SEUIL_HAUT,0, 0.0, "IR"};
@@ -56,7 +56,6 @@ int main(int argc, char* argv[])
 	}
 
 	while(!eof){
-
 		if(typeSrc == 1){
 			absorb = lecture(src, &eof);
 		}
@@ -66,7 +65,6 @@ int main(int argc, char* argv[])
 		}
 
 		if(!eof){
-
 			push_front(&buffer, absorb);
 			acRPBPrec = acRPB;
 			acIRPBPrec = acIRPB;

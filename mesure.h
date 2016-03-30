@@ -15,10 +15,10 @@ struct AcMesures
 	int lastValue;
 	int nbPoints;
 
-	int min;
-	int minValid;
-	int max;
-	int maxValid;
+	float min;
+	float minValid;
+	float max;
+	float maxValid;
 
 	float bpm;
 
@@ -32,7 +32,7 @@ void majMaxMinDepasseSeuil(AcMesures* ac, int acNew);
 void majPassageZero(AcMesures* ac, int acNew);
 int majBpm(AcMesures* ac);
 
-float calculSPo2(float acRmax, float acrmin, float acIRmax, float acIRmin, int dcR, int dcIR);
+float calculSPo2(float acRmax, float acrmin, float acIRmax, float acIRmin, float dcR, float dcIR);
 float convertRatioToSPO2(float ratio);
 
 void affAcMesure(AcMesures ac);

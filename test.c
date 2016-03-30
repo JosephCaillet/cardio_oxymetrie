@@ -12,11 +12,15 @@
 
 void testLecture();
 void testIir();
+void testMesure();
+void testSP02();
 
 int main()//int argc, char* argv[])
 {
 	//testLecture();
 	//testIir();
+	//testMesure();
+	testSP02();
 
 	return 0;
 }
@@ -57,4 +61,26 @@ void testIir()
 
 	printf("Output given : %f %f %f %f\n", a.acr, a.dcr, a.acir, a.dcir);
 	printf("Output expct : %s", output);
+}
+
+void testMesure()
+{
+	puts(" -- Running test for mesure : --");
+
+	char* input = "rec/record1_iir.dat";
+	char* output = "69bpm 85%\n";
+
+	oxy o = {42, 42};
+	o = mesureTest(input);
+	printf("Output given : %dbpm %d%%\n", o.pouls, o.spo2);
+	printf("Output expct : %s", output);
+}
+
+void testSP02()
+{
+	float f;
+	for(f = 0; f < 5; f += 0.1)
+	{
+		printf("f = %f -- spo2 = %f\n", f, convertRatioToSPO2(f));
+	}
 }
