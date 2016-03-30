@@ -13,6 +13,8 @@ int initFenetre(Fenetre* fenetre)
 		return -1;
 	}
 
+	
+
 	putenv("SDL_VIDEO_CENTERED=1");
 	fenetre->screen = SDL_SetVideoMode(FENETRE_LARGEUR, FENETRE_HAUTEUR, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
 	if(fenetre->screen == NULL)
@@ -82,6 +84,18 @@ int initFenetre(Fenetre* fenetre)
 
 	initButton(&fenetre->alarmeBas, fenetre, "Min :", 40, 10, 80, 2, (FENETRE_LARGEUR / 4) - BUTTON_LARGEUR / 2, 4 * (COURBE_HAUTEUR + COURBE_OFFSET_Y));
 	initButton(&fenetre->alarmeHaut, fenetre, "Max :", 100, 90, 200, 5, (FENETRE_LARGEUR / 4 * 3) - BUTTON_LARGEUR / 2,  4 * (COURBE_HAUTEUR + COURBE_OFFSET_Y));
+
+	SDL_Surface* icone = SDL_LoadBMP("img/heart.bmp");
+	if(icone != NULL)
+	{
+		SDL_SetColorKey(icone, SDL_SRCCOLORKEY, SDL_MapRGB(icone->format, 255, 255, 255));
+		SDL_WM_SetIcon(icone, NULL);
+		SDL_FreeSurface(icone);
+	}
+	else
+	{
+		fprintf(stderr, "Icone img/heart.bmp non trouvée.\n");
+	}
 
 	return 0;
 }
