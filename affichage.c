@@ -8,44 +8,33 @@
 #include "affichage.h"
 
 void affichage(oxy oxyDatas){
-
-	FILE *verrou = NULL;
-	FILE *data = NULL;
-
-	if(access(".verrouData", F_OK) == -1){
-		verrou = fopen(".verrouData", "w");
-
-		data = fopen("Data.txt", "w+");
-		if(data != NULL){
-			fprintf(data, "%d\n%d", oxyDatas.spo2, oxyDatas.pouls);
-
-			fclose(data);
-		}
-
-		fclose(verrou);
-		remove(".verrouData");
-	}
-
+	printInFile("Data.txt", ".verrouData", oxyDatas.spo2, oxyDatas.pouls);
 	return;
 }
 
 void affichage2(float acr, float acir)
 {
+	printInFile("Data2.txt", ".verrouData2", (int)acr, (int)acir);
+	return;
+}
+
+void printInFile(char* dataFileName, char* verrouFileName, int value1, int value2)
+{
 	FILE *verrou = NULL;
 	FILE *data = NULL;
 
-	if(access(".verrouData2", F_OK) == -1){
-		verrou = fopen(".verrouData2", "w");
+	if(access(verrouFileName, F_OK) == -1){
+		verrou = fopen(verrouFileName, "w");
 
-		data = fopen("Data2.txt", "w+");
+		data = fopen(dataFileName, "w+");
 		if(data != NULL){
-			fprintf(data, "%d\n%d", (int)acr, (int)acir);
+			fprintf(data, "%d\n%d", value1, value2);
 
 			fclose(data);
 		}
 
 		fclose(verrou);
-		remove(".verrouData2");
+		remove(verrouFileName);
 	}
 
 	return;
