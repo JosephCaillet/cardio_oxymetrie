@@ -21,7 +21,7 @@ absorp iirTest(char* str){
 	acIRPH = 0;
 
 	do{
-		fscanf(pf, "%f,%f,%f,%f,%c,%c", &absorb.acr, &absorb.dcr, &absorb.acir, &absorb.dcir, &x, &y);
+		fscanf(pf, "%f,%f,%f,%f,%c,%c", &acRPB, &absorb.dcr, &acIRPB, &absorb.dcir, &x, &y);
 
 		acRPHPrec = acRPH;
 		acIRPHPrec = acIRPH;
