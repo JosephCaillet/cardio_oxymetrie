@@ -30,7 +30,7 @@ void mesure(oxy* oxy, absorp absorp, AcMesures* acRm, AcMesures* acIRm);
 
 void majMaxMinDepasseSeuil(AcMesures* ac, int acNew);
 void majPassageZero(AcMesures* ac, int acNew);
-int majBpm(AcMesures* ac);
+int majBpm(AcMesures* ac, float ech_ac);
 
 float calculSPo2(float acRmax, float acrmin, float acIRmax, float acIRmin, float dcR, float dcIR);
 float convertRatioToSPO2(float ratio);

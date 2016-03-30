@@ -15,14 +15,14 @@ void mesure(oxy* oxy, absorp absorp, AcMesures* acRm, AcMesures* acIRm)
 	majPassageZero(acIRm, absorp.acir);
 
 	//updBpm
-	periodeAquise += majBpm(acRm);
-	periodeAquise += majBpm(acIRm);
+	periodeAquise += majBpm(acRm, absorp.acr);
+	periodeAquise += majBpm(acIRm, absorp.acir);
 
 	//updSPo2	
 	if(periodeAquise > 0)
 	{
-		puts("Avant spo2 :");
-		printf("acRmax : %f, acRmin : %f\nacIRmax : %f, acIRmin : %f\ndcR : %f, dcIR : %f\n", acRm->maxValid, acRm->minValid, acIRm->maxValid, acIRm->minValid, absorp.dcr, absorp.dcir);
+//		puts("Avant spo2 :");
+//		printf("acRmax : %f, acRmin : %f\nacIRmax : %f, acIRmin : %f\ndcR : %f, dcIR : %f\n", acRm->maxValid, acRm->minValid, acIRm->maxValid, acIRm->minValid, absorp.dcr, absorp.dcir);
 		oxy->spo2 = calculSPo2(acRm->maxValid, acRm->minValid, acIRm->maxValid, acIRm->minValid, absorp.dcr, absorp.dcir);
 		oxy->pouls = (acRm->bpm + acIRm->bpm) / 2.0f;
 		//printf("Rbmp: %f - IRbmp: %f\n", acRm->bpm, acIRm->bpm);
@@ -72,13 +72,13 @@ void majPassageZero(AcMesures* ac, int acNew)
 	ac->lastValue = acNew;
 }
 
-int majBpm(AcMesures* ac)
+int majBpm(AcMesures* ac, float ech_ac)
 {
-	static float lastbpm = 0;
+	static float lastbpm = 425;
 	//if(ac->seuilBasPasse == 1 && ac->seuilHautPasse == 1 && ac->passagePar0 > 2)//Si on est passé par le seuil bas, implique passage seuil haut.
-	if(ac->seuilBasPasse == 1 && ac->seuilHautPasse == 1)//Si on est passé par le seuil bas, implique passage seuil haut.
+	if(ech_ac < SEUIL_BAS && ac->seuilHautPasse == 1)//Si on est passé par le seuil bas, implique passage seuil haut.
 	{
-		printf("Une période à été aquise sur : %s\n", ac->s);
+//		printf("Une période à été aquise sur : %s\n", ac->s);
 		//affAcMesure(*ac);
 		
 		ac->seuilHautPasse = 0;
@@ -91,7 +91,8 @@ int majBpm(AcMesures* ac)
 		//ac->bpm = (float)30000 / (float)ac->nbPoints;
 //		ac->bpm = (((float)30000 / (float)ac->nbPoints) + lastbpm) / 2.0  ;
 //		lastbpm = ac->bpm;
-		ac->bpm = (float)30000 / (((float)ac->nbPoints + (float)lastbpm)/2) / 2.0  ;
+		ac->bpm = (float)30000 / (((float)ac->nbPoints + (float)lastbpm)/2)  ;
+		printf("cpt : %d\tcpt_old : %1f\tbpm : %f\tbpm_old : %f\tbpm_moy : %f\n", ac->nbPoints, lastbpm, (float)30000/(float)ac->nbPoints, (float)30000/(float)lastbpm, ac->bpm);
 		lastbpm = ac->nbPoints;
 		ac->nbPoints = 1;
 		
@@ -109,13 +110,13 @@ float calculSPo2(float acRmax, float acRmin, float acIRmax, float acIRmin, float
 	//printf("acRmax : %f, acRmin : %f\nacIRmax : %f, acIRmin : %f\ndcR : %f, dcIR : %f\n", acRmax, acRmin, acIRmax, acIRmin, dcR, dcIR);
 	float ptpACr = acRmax - acRmin;
 	float rapport1 = ptpACr / dcR;
-	printf("le rapport1 vaut : %f\n", rapport1);
+//	printf("le rapport1 vaut : %f\n", rapport1);
 
 	float ptpACir = acIRmax - acIRmin;
 	float rapport2 = ptpACir / dcIR;
-	printf("le rapport2 vaut : %f\n", rapport2);
+//	printf("le rapport2 vaut : %f\n", rapport2);
 
-	printf("le ratio vaut : %f\n", rapport1 / rapport2);
+//	printf("le ratio vaut : %f\n", rapport1 / rapport2);
 	return  convertRatioToSPO2( rapport1 / rapport2 );
 }
 
