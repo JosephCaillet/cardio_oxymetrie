@@ -142,8 +142,8 @@ void affAcMesure(AcMesures ac)
 oxy mesureTest(char* str){
 	oxy oxyDatas;
 	absorp absorb;
-	AcMesures acRm = {0,0,0, 0,0, SEUIL_BAS,0,SEUIL_HAUT,0, 0.0, "R"};
-	AcMesures acIRm = {0,0,0, 0,0, SEUIL_BAS,0,SEUIL_HAUT,0, 0.0, "IR"};
+	AcMesures acRm = {0,0,0, 0,0, SEUIL_BAS,SEUIL_BAS,SEUIL_HAUT,SEUIL_HAUT, 0.0, "R"};
+	AcMesures acIRm = {0,0,0, 0,0, SEUIL_BAS,SEUIL_BAS,SEUIL_HAUT,SEUIL_HAUT, 0.0, "IR"};
 	char x, y;
 
 	FILE* pf = fopen(str, "r");
