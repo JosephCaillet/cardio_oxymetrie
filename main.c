@@ -55,7 +55,7 @@ int main(int argc, char* argv[])
 		exit(0);
 	}
 
-	while(!eof){
+	while(eof != EOF){
 		if(typeSrc == 1){
 			absorb = lecture(src, &eof);
 		}
@@ -64,7 +64,7 @@ int main(int argc, char* argv[])
 			//lecture USB
 		}
 
-		if(!eof){
+		if(eof != EOF){
 			push_front(&buffer, absorb);
 			acRPBPrec = acRPB;
 			acIRPBPrec = acIRPB;
@@ -86,7 +86,11 @@ int main(int argc, char* argv[])
 
 			printf("%d\t%d\n", oxyDatas.pouls, oxyDatas.spo2);
 			affichage(oxyDatas);
+<<<<<<< HEAD
 			affichage2(absorb.acr, absorb.acir);
+=======
+
+>>>>>>> 0623604ed4c59c7a0ed501c3b2705d11c46ebc08
 			//lastBpm = oxyDatas.pouls;
 		}
 
