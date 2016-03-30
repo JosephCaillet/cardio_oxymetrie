@@ -32,9 +32,6 @@ void integrationTest(char* fileName){
 	AcMesures acIRm = {0,0,0, 0,0, SEUIL_BAS,0,SEUIL_HAUT,0, 0.0, "IR"};
 
 	initDataBuffer(&buffer);
-	reussite = 0;
-	continuer = 1;
-	err = 0;
 	typeSrc = 0;
 
 	acRPB = 0;
@@ -61,8 +58,6 @@ void integrationTest(char* fileName){
 		}
 
 		if(!eof){
-			err = 0;
-
 			push_front(&buffer, absorb);
 			acRPBPrec = acRPB;
 			acIRPBPrec = acIRPB;
