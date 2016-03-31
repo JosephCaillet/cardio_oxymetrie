@@ -34,6 +34,7 @@ absorp iirTest(char* str){
 
 	//-- Ouverture du fichier envoyé en paramètre --//
 	FILE* pf = fopen(str, "r");
+	//-- Si le fichier n'a pu être lu, on envoi un message sur la console et on quitte la fonction --//
 	if(!pf){
 		printf("Le fichier n'a pu être lu.\n");
 		return absorb;
