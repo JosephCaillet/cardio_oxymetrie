@@ -5,6 +5,7 @@
 #include "iir.h"
 #include "mesure.h"
 #include "lecture.h"
+#include "lectureUSB.h"
 #include "affichage.h"
 #include "dataBuffer.h"
 
@@ -14,7 +15,7 @@ int main(int argc, char* argv[])
 	absorp absorb;
 	DataBuffer buffer;
 	oxy oxyDatas;
-	int typeSrc, eof;
+	int typeSrc, eof = 42;
 	//int lastBpm = 0;
 	float acRPB, acRPBPrec, acRPH, acRPHPrec, acIRPB, acIRPBPrec, acIRPH, acIRPHPrec;
 	/*
@@ -29,6 +30,8 @@ int main(int argc, char* argv[])
 	acIRPHPrec - acIR passe haut précedent
 	*/
 	FILE* src = NULL;
+	FT_HANDLE ftHandle;
+	FT_STATUS ftStatus;
 
 	AcMesures acRm = {0,0,0, 0,0, SEUIL_BAS,0,SEUIL_HAUT,0, 0.0, "R"};
 	AcMesures acIRm = {0,0,0, 0,0, SEUIL_BAS,0,SEUIL_HAUT,0, 0.0, "IR"};
@@ -50,9 +53,13 @@ int main(int argc, char* argv[])
 		}
 		typeSrc = 1;
 	}else{
-		src = NULL;/*remplacer par usb*/
+		ftStatus = FT_Open(0, &ftHandle);
+		if(ftStatus != FT_OK)
+		{
+			puts("Impossible d'ouvrir l'USB.");
+			return 1;
+		}
 		typeSrc = 0;
-		exit(0);
 	}
 
 	while(eof != EOF){
@@ -61,10 +68,12 @@ int main(int argc, char* argv[])
 		}
 		else
 		{
-			//lecture USB
+			//puts("a");
+			absorb = lectureUsb(ftHandle);
 		}
 
 		if(eof != EOF){
+			//puts("o");
 			push_front(&buffer, absorb);
 			acRPBPrec = acRPB;
 			acIRPBPrec = acIRPB;
