@@ -11,6 +11,9 @@
 											{ \
 												return lecture(pf, etat); \
 											}
+////////////////////////////
+//     Lecture fichier /////
+////////////////////////////
 
 int readSequence(FILE* pf, float* nb)
 {
@@ -170,9 +173,4 @@ absorp lecture(FILE* pf, int* etat)
 	absorb.acr -= 2048;
 	absorb.acir -= 2048;
 	return absorb;
-}
-
-int lectureUSB(FILE* src,  absorp* absorb)
-{
-	return 0;
 }

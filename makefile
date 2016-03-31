@@ -1,9 +1,9 @@
 FLAGS=-Wall -Wextra #-pedantic
 
-carOxyAcq: main.o fir.o iir.o lecture.o mesure.o affichage.o dataBuffer.o
-	gcc main.o fir.o iir.o lecture.o mesure.o affichage.o dataBuffer.o -o carOxyAcq.exe
+carOxyAcq: main.o fir.o iir.o lecture.o lectureUSB.o mesure.o affichage.o dataBuffer.o
+	gcc main.o fir.o iir.o lecture.o lectureUSB.o mesure.o affichage.o dataBuffer.o -o carOxyAcq.exe -L. ftd2xx.lib
 
-main.o: main.c fir.h iir.h lecture.h mesure.h affichage.h dataBuffer.h define.h
+main.o: main.c fir.h iir.h lecture.h lectureUSB.h mesure.h affichage.h dataBuffer.h define.h
 	gcc -c main.c -o main.o $(FLAGS)
 
 fir.o: fir.c fir.h iir.h lecture.h mesure.h affichage.h dataBuffer.h define.h
@@ -14,6 +14,9 @@ iir.o: iir.c fir.h iir.h lecture.h mesure.h affichage.h dataBuffer.h define.h
 
 lecture.o: lecture.c fir.h iir.h lecture.h mesure.h affichage.h dataBuffer.h define.h
 	gcc -c lecture.c -o lecture.o $(FLAGS)
+
+lectureUSB.o: lectureUSB.c fir.h iir.h lectureUSB.h ftd2xx.h mesure.h affichage.h dataBuffer.h define.h
+	gcc -c lectureUSB.c -o lectureUSB.o $(FLAGS)
 
 mesure.o: mesure.c fir.h iir.h lecture.h mesure.h affichage.h dataBuffer.h define.h
 	gcc -c mesure.c -o mesure.o $(FLAGS)

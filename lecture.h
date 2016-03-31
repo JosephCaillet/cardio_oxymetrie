@@ -12,8 +12,5 @@ int checkErrors(int res, int* eof, FILE* pf);
 
 int waitForValidTrame(FILE* pf);
 absorp lecture(FILE* pf, int* etat);
-//int lecture(void* source, int typeSource, absorp* absorb);
 
-int lectureFichier(FILE* source,  absorp* absorb);
-int lectureUSB(FILE* source,  absorp* absorb);
 #endif
