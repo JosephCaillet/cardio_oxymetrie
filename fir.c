@@ -1,5 +1,5 @@
 /*==============================================================================================================*/
-/*	Nom : 		fir.C																							*/
+/*	Nom : 		fir.c																							*/
 /*	Auteur : 	Thomas COUSSOT																					*/
 /*	Desc : 		La fonction a pour but de simuler un filtre à réponse finie (fir). Ce filtre à pour but de		*/
 /*				supprimer les composantes hautes fréquences et garder le signal se trouvant autour de 1hz. On	*/

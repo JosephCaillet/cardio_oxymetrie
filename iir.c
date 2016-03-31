@@ -1,5 +1,5 @@
 /*==============================================================================================================*/
-/*	Nom : 		iir.C																							*/
+/*	Nom : 		iir.c																							*/
 /*	Auteur : 	Thomas COUSSOT																					*/
 /*	Desc : 		La fonction a pour but de simuler un filtre à réponse infinie (IIR). On utilise donc la formule */
 /*				y(n) = x[n] - x[n-1] + ALPHA * y[n-1]  . ALPHA est une constante appliquée au filtre. Nous		*/
