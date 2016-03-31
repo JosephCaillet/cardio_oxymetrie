@@ -14,11 +14,11 @@
 #define RETURN_IF_EOF_OR_READING_ERROR()    res = checkErrors(res, etat, pf); \
 											if(res == -1) \
 											{ \
-												return absorb; \//fin de fichier, arret.
+												return absorb;\
 											} \
 											else if(res == 1) \
 											{ \
-												return lecture(pf, etat); \//erreur de lecture, passe à la trame suivante.
+												return lecture(pf, etat); \
 											}
 
 /*------------------------------------------------------------------------------*/
@@ -197,6 +197,6 @@ absorp lecture(FILE* pf, int* etat)
 	//supression de l'offset, retablissement de l'origine a zero
 	absorb.acr -= 2048;
 	absorb.acir -= 2048;
-	
+
 	return absorb;
 }
