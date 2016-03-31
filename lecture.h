@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include "dataBuffer.h"
 
-//Longueur
+//Longueur de tramme pour un nombre
 #define LONG_ELM_TRAME 4
 
 int readSequence(FILE* pf, float* nb);
