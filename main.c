@@ -16,7 +16,6 @@ int main(int argc, char* argv[])
 	DataBuffer buffer;
 	oxy oxyDatas;
 	int typeSrc, eof = 42;
-	//int lastBpm = 0;
 	float acRPB, acRPBPrec, acRPH, acRPHPrec, acIRPB, acIRPBPrec, acIRPH, acIRPHPrec;
 	/*
 	acRPB - acR filtré passe bas
@@ -68,12 +67,10 @@ int main(int argc, char* argv[])
 		}
 		else
 		{
-			//puts("a");
 			absorb = lectureUsb(ftHandle);
 		}
 
 		if(eof != EOF){
-			//puts("o");
 			push_front(&buffer, absorb);
 			acRPBPrec = acRPB;
 			acIRPBPrec = acIRPB;
@@ -90,9 +87,6 @@ int main(int argc, char* argv[])
 			absorb.acir = acIRPH;
 			mesure(&oxyDatas, absorb, &acRm, &acIRm);
 
-			//oxyDatas.pouls += lastBpm;
-			//oxyDatas.pouls /= 2;
-
 			printf("%d\t%d\n", oxyDatas.pouls, oxyDatas.spo2);
 			affichage(oxyDatas);
 			affichage2(absorb.acr, absorb.acir);
@@ -100,7 +94,6 @@ int main(int argc, char* argv[])
 				usleep(2000);
 //				usleep(1000);
 			}
-			//lastBpm = oxyDatas.pouls;
 		}
 
 	}
