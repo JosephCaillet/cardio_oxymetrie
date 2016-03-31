@@ -89,6 +89,7 @@ int main(int argc, char* argv[])
 			affichage2(absorb.acr, absorb.acir);
 			if(typeSrc == 1){
 				usleep(2000);
+//				usleep(1000);
 			}
 			//lastBpm = oxyDatas.pouls;
 		}
