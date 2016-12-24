@@ -65,10 +65,6 @@ void integrationTest(char* fileName){
 		if(typeSrc == 1){
 			absorb = lecture(src, &eof);//aquisition des données
 		}
-		else
-		{
-			//lecture USB
-		}
 
 		if(eof != EOF){
 			push_front(&buffer, absorb);//mise a jour historique valeurs brutes
