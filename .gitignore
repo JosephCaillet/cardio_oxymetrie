@@ -1,7 +1,5 @@
 *.o
-carOxyAcq.exe
 errors.log
 .verrouData
 Data.txt
 ihm/.idea
-ihm/carOxyIhm.exe
