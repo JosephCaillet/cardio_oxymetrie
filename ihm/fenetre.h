@@ -7,6 +7,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
+
 #include <SDL/SDL.h>
 #include <SDL/SDL_ttf.h>
 
@@ -108,10 +110,11 @@ struct Fenetre
 
 	int statusAlarme;
 	int easterStatus;
+	bool displayACvalues;
 };
 typedef struct Fenetre Fenetre;
 
-int initFenetre(Fenetre* fenetre);
+int initFenetre(Fenetre* fenetre, bool displayACvalues);
 void deleteFenetre(Fenetre* fenetre);
 void clearFenetre(Fenetre* fenetre);
 void drawCourbe(Fenetre* fenetre, int numCourbe, DataBuffer* dataBuffer, int offsetOrigin);

@@ -5,16 +5,16 @@
 #include "fenetre.h"
 #include "button.h"
 
-int initFenetre(Fenetre* fenetre)
+int initFenetre(Fenetre* fenetre, bool displayACvalues)
 {
 	if(SDL_Init(SDL_INIT_VIDEO) == -1)
 	{
 		puts("Erreur chargement SDL.");
 		return -1;
 	}
-
 	
-
+	fenetre->displayACvalues = displayACvalues;
+	
 	putenv("SDL_VIDEO_CENTERED=1");
 	fenetre->screen = SDL_SetVideoMode(FENETRE_LARGEUR, FENETRE_HAUTEUR, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
 	if(fenetre->screen == NULL)
@@ -205,6 +205,11 @@ void drawValeurs(Fenetre* fenetre, SDL_Surface* label, int valeur, char* txt, SD
 	pos.x = TEXTE_OFFSET_X - label->w / 2;
 	pos.y = (COURBE_HAUTEUR + COURBE_OFFSET_Y) * (0.5 + num-1) - label->h / 2 - TEXTE_GAP_Y / 2;
 	SDL_BlitSurface(label, NULL, fenetre->screen, &pos);
+
+	if(!fenetre->displayACvalues && (num == 3 || num == 4))
+	{
+		return;
+	}
 
 	sprintf(string, txt, valeur);
 	valeurSurface = TTF_RenderText_Shaded(fenetre->font, string, couleur, fenetre->colorFondEcran);

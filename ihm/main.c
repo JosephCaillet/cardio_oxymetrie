@@ -2,6 +2,8 @@
 // Created by joseph on 16/03/16.
 //
 
+#include <string.h>
+
 #include "dataBuffer.h"
 #include "fenetre.h"
 #include "lecture.h"
@@ -13,6 +15,7 @@ int main(int argc, char *argv[])
 {
 	setbuf(stdout, NULL);
 
+	bool displayACinfo = true;
 	DataBuffer spo2, bpm, acr, acir;
 	initBuffer(&spo2);
 	initBuffer(&bpm);
@@ -22,8 +25,15 @@ int main(int argc, char *argv[])
 	int tempsPrecedent = 0, tempsActuel = 0, souriRelachee = 0;
 
 	Fenetre fenetre;
-	
-	if(initFenetre(&fenetre) == -1)
+
+	printf("%d\n", argc);
+	if(argc == 2 && strcmp(argv[1], "--hideACvalues") == 0)
+	{
+		displayACinfo = false;
+	}
+
+
+	if(initFenetre(&fenetre, displayACinfo) == -1)
 	{
 		return -1;
 	}
@@ -95,7 +105,7 @@ int main(int argc, char *argv[])
 			drawValeurs(&fenetre, fenetre.txtBpm, m.bpm, " %d ", fenetre.colorBpm, 2);
 			drawValeurs(&fenetre, fenetre.txtAcr, m.acr, " %d ", fenetre.colorAcr, 3);
 			drawValeurs(&fenetre, fenetre.txtAcir, m.acir, " %d ", fenetre.colorAcir, 4);
-
+			
 			drawButton(&(fenetre.alarmeBas));
 			drawButton(&(fenetre.alarmeHaut));
 

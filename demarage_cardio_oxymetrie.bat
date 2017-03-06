@@ -18,13 +18,13 @@ set /p mode= Mode choisi:
 
 if "%mode%" == "fic" (
 	cd ihm
-	start carOxyIhm.exe
+	start carOxyIhm.exe --hideACvalues
 	cd ..
 	call carOxyAcq.exe rec/record1.dat
 ) else (
 	if "%mode%" == "usb" (
 		cd ihm
-		start carOxyIhm.exe
+		start carOxyIhm.exe --hideACvalues
 		cd ..
 		call carOxyAcq.exe
 	) else (
