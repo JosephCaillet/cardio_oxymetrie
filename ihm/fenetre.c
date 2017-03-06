@@ -22,7 +22,7 @@ int initFenetre(Fenetre* fenetre, bool displayACvalues)
 		puts("Erreur création fenetre.");
 	}
 
-	SDL_WM_SetCaption("Oxymètre de pouls", NULL);
+	SDL_WM_SetCaption(FENETRE_TITRE, NULL);
 
 	if(TTF_Init() == -1)
 	{
