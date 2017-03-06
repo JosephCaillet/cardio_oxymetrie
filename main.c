@@ -87,7 +87,7 @@ int main(int argc, char* argv[])
 			absorb.acir = acIRPH;
 			mesure(&oxyDatas, absorb, &acRm, &acIRm);
 
-			printf("%d\t%d\n", oxyDatas.pouls, oxyDatas.spo2);
+			//printf("%d\t%d\n", oxyDatas.pouls, oxyDatas.spo2);
 			affichage(oxyDatas);
 			affichage2(absorb.acr, absorb.acir);
 			if(typeSrc == 1){

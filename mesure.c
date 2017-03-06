@@ -104,7 +104,7 @@ int majBpm(AcMesures* ac, float ech_ac)
 		//-- maj du bpm --//
 		ac->bpm = (float)30000 / (((float)ac->nbPoints + (float)lastbpm)/2)  ;
 //		ac->bpm = (float)30000 / (float)ac->nbPoints;
-		printf("cpt : %d\tcpt_old : %1f\tbpm : %f\tbpm_old : %f\tbpm_moy : %f\n", ac->nbPoints, lastbpm, (float)30000/(float)ac->nbPoints, (float)30000/(float)lastbpm, ac->bpm);
+		//printf("cpt : %d\tcpt_old : %1f\tbpm : %f\tbpm_old : %f\tbpm_moy : %f\n", ac->nbPoints, lastbpm, (float)30000/(float)ac->nbPoints, (float)30000/(float)lastbpm, ac->bpm);
 		lastbpm = ac->nbPoints; //on met à jour l'ancienne valeur (de compteur, le fonctionnement a été modifié entre temps, d'où le nom peu représentatif de la variable)
 		ac->nbPoints = 1;
 		
